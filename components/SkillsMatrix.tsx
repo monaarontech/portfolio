@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { SKILL_CATEGORIES } from "@/data/portfolioData";
 import { Layout, Server, Database, Code, Cpu, Search, CheckCircle2 } from "lucide-react";
+import { playClickSound, playHoverSound } from "@/utils/soundEffects";
 
 export default function SkillsMatrix() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -59,7 +60,10 @@ export default function SkillsMatrix() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => {
+                  playClickSound();
+                  setSelectedCategory(cat);
+                }}
                 className={`px-4 py-2 rounded-xl text-xs font-mono transition-all ${
                   selectedCategory === cat
                     ? "bg-[#FF2A4D] text-white font-semibold shadow-md shadow-[#FF2A4D]/25"

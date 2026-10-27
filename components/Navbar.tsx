@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { Menu, X, ArrowUpRight, Sparkles, Terminal } from "lucide-react";
+import { Menu, X, ArrowUpRight, Sparkles, Terminal, Gamepad2 } from "lucide-react";
+import { openSecretTerminal } from "@/components/SecretTerminal";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -13,7 +14,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
-      const sections = ["hero", "about", "flagship", "projects", "dev-studio", "skills", "process", "contact"];
+      const sections = ["hero", "about", "flagship", "projects", "dev-studio", "playground", "skills", "process", "contact"];
       const scrollPos = window.scrollY + 200;
 
       for (const section of sections) {
@@ -38,6 +39,7 @@ export default function Navbar() {
     { label: "Palayan Hub", href: "#flagship", id: "flagship" },
     { label: "Projects", href: "#projects", id: "projects" },
     { label: "Dev Studio", href: "#dev-studio", id: "dev-studio" },
+    { label: "Playground", href: "#playground", id: "playground" },
     { label: "Skills", href: "#skills", id: "skills" },
     { label: "Process", href: "#process", id: "process" },
     { label: "Contact", href: "#contact", id: "contact" },
@@ -93,6 +95,16 @@ export default function Navbar() {
 
             {/* Right Status Badge & CTA */}
             <div className="hidden lg:flex items-center gap-3">
+              <button
+                onClick={openSecretTerminal}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#12141C] border border-white/10 hover:border-[#FF2A4D]/50 text-gray-300 hover:text-white text-xs font-mono transition-all"
+                title="Launch Secret Terminal (` or ~)"
+              >
+                <Terminal className="w-3.5 h-3.5 text-[#FF2A4D]" />
+                <span>Console</span>
+                <span className="px-1 py-0.2 rounded bg-white/10 text-[10px] text-gray-400 font-bold">~</span>
+              </button>
+
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
                 <span>Open for Roles</span>

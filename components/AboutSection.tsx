@@ -3,10 +3,40 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { GraduationCap, Code2, Target, HeartHandshake, Compass, CheckCircle } from "lucide-react";
+import { GraduationCap, Code2, Target, HeartHandshake, Compass, CheckCircle, Calendar, Milestone } from "lucide-react";
+import { playClickSound, playHoverSound } from "@/utils/soundEffects";
+
+const MILESTONES = [
+  {
+    year: "2022",
+    title: "Foundations & Logic",
+    desc: "Began BSIT journey at NEUST Atate. Mastered algorithmic problem solving, structured programming, and discrete mathematics.",
+  },
+  {
+    year: "2024",
+    title: "Relational Modeling",
+    desc: "Engineered scalable normalized database schemas in MySQL, built secure PHP backend services, and built dynamic web architectures.",
+  },
+  {
+    year: "2025",
+    title: "Flagship Civic Architect",
+    desc: "Designed and implemented One Palayan-Kalinga Hub for CSWDO Palayan City, automating AICS assistance and social housing workflows.",
+  },
+  {
+    year: "2026",
+    title: "ISO Standard & Modern Stack",
+    desc: "Achieved 100% compliance across ISO/IEC 25010:2023 quality dimensions. Scaled to Next.js 14, TypeScript, and cinematic UX.",
+  },
+];
 
 export default function AboutSection() {
   const [activeTab, setActiveTab] = useState<"philosophy" | "academic" | "approach">("philosophy");
+  const [activeMilestone, setActiveMilestone] = useState(2); // default 2025
+
+  const handleMilestoneClick = (idx: number) => {
+    playClickSound();
+    setActiveMilestone(idx);
+  };
 
   return (
     <section id="about" className="py-24 bg-[#090A0F] relative overflow-hidden border-b border-white/5">
@@ -124,6 +154,46 @@ export default function AboutSection() {
                     </p>
                   </div>
                 )}
+              </div>
+            </div>
+
+            {/* Interactive Timeline Milestones */}
+            <div className="p-6 rounded-2xl bg-[#10121A] border border-white/10 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs font-mono text-[#FF2A4D] uppercase tracking-wider font-semibold">
+                  <Milestone className="w-4 h-4" />
+                  <span>DEVELOPER LEARNING JOURNEY</span>
+                </div>
+                <span className="text-[11px] font-mono text-gray-500">Click a milestone year</span>
+              </div>
+
+              {/* Year Buttons */}
+              <div className="grid grid-cols-4 gap-2">
+                {MILESTONES.map((m, idx) => (
+                  <button
+                    key={m.year}
+                    onClick={() => handleMilestoneClick(idx)}
+                    onMouseEnter={playHoverSound}
+                    className={`py-2 px-1 rounded-xl text-xs font-mono font-bold transition-all text-center ${
+                      activeMilestone === idx
+                        ? "bg-[#FF2A4D] text-white shadow-lg shadow-[#FF2A4D]/30"
+                        : "bg-[#141624] text-gray-400 hover:text-white border border-white/5"
+                    }`}
+                  >
+                    {m.year}
+                  </button>
+                ))}
+              </div>
+
+              {/* Active Milestone Card */}
+              <div className="p-4 rounded-xl bg-[#141624]/60 border border-white/5 animate-in fade-in duration-200">
+                <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold mb-1">
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>{MILESTONES[activeMilestone].year} • {MILESTONES[activeMilestone].title}</span>
+                </div>
+                <p className="text-xs text-gray-300 leading-relaxed font-mono">
+                  {MILESTONES[activeMilestone].desc}
+                </p>
               </div>
             </div>
 
