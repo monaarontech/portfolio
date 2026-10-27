@@ -36,7 +36,7 @@ export default function Footer() {
             <a href="#about" className="hover:text-white transition-colors">About</a>
             <a href="#flagship" className="hover:text-white transition-colors">Palayan Hub</a>
             <a href="#projects" className="hover:text-white transition-colors">Projects</a>
-            <a href="#media-lab" className="hover:text-white transition-colors">Motion Lab</a>
+            <a href="#dev-studio" className="hover:text-white transition-colors">Dev Studio</a>
             <a href="#skills" className="hover:text-white transition-colors">Skills</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
