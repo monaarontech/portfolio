@@ -44,23 +44,49 @@ export default function Hero() {
       </div>
 
       {/* Hero Stage: Giant "PORTFOLIO" + Cutout Portrait Layering */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center my-auto">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-end lg:min-h-[780px] my-auto">
         {/* Layer 1: Giant Editorial Background Typography ("PORTFOLIO") */}
-        <div className="absolute inset-x-0 top-2 sm:top-0 z-0 flex justify-center pointer-events-none select-none">
-          <h1 className="text-[20vw] sm:text-[18vw] font-black uppercase tracking-tighter text-[#E50914] leading-none opacity-90 text-center font-display drop-shadow-[0_15px_35px_rgba(229,9,20,0.35)]">
+        <div className="absolute inset-x-0 top-0 sm:top-2 z-0 flex justify-center pointer-events-none select-none">
+          <h1 className="text-[22vw] sm:text-[20vw] lg:text-[18vw] font-black uppercase tracking-tighter text-[#E50914] leading-none opacity-90 text-center font-display drop-shadow-[0_15px_35px_rgba(229,9,20,0.35)]">
             PORTFOLIO
           </h1>
         </div>
 
-        {/* Layer 2: 3-Column Layout: Left Narrative, Center Cutout Overlapping "PORTFOLIO", Right Stats */}
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-12 sm:pt-20">
-          {/* Left Column: Personal Intro (4 cols) */}
-          <div className="lg:col-span-4 space-y-6 pb-6 text-left">
+        {/* Layer 2: Dominant Center Portrait Overlapping "PORTFOLIO" Text */}
+        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 bottom-0 z-20 justify-center items-end pointer-events-none">
+          <div
+            className="relative w-[580px] xl:w-[680px] 2xl:w-[740px] aspect-[896/1200] max-h-[760px] xl:max-h-[820px] transition-transform duration-200 ease-out"
+            style={{
+              transform: `translateX(${mousePos.x * 14}px) translateY(${mousePos.y * 7}px)`,
+            }}
+          >
+            {/* Radial ambient glow behind portrait */}
+            <div className="absolute inset-0 bg-[#FF2A4D]/20 blur-3xl rounded-full scale-90 -z-10" />
+
+            {/* The Authentic Cutout Portrait (Real face & eyes 100% preserved) */}
+            <Image
+              src="/images/portrait-cutout.png"
+              alt="Mon Aaron Marcelo - Full-Stack Developer & Civic Tech Architect"
+              fill
+              priority
+              className="object-contain object-bottom drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)]"
+              sizes="(max-width: 1280px) 680px, 740px"
+            />
+
+            {/* Bottom fade blending seamlessly into section background */}
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#07070A] via-[#07070A]/80 to-transparent pointer-events-none" />
+          </div>
+        </div>
+
+        {/* Layer 3: Left Narrative + Right Metrics (Clean Overlap Grid) */}
+        <div className="relative z-30 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-12 sm:pt-20 pb-4">
+          {/* Left Column: Personal Intro (5 cols on lg) */}
+          <div className="lg:col-span-4 xl:col-span-4 space-y-6 pb-6 text-left">
             <div className="space-y-1">
-              <span className="text-[#FF2A4D] font-serif italic text-2xl sm:text-3xl tracking-wide block">
+              <span className="text-[#FF2A4D] font-serif italic text-3xl sm:text-4xl tracking-wide block">
                 Hello, I&apos;m
               </span>
-              <h2 className="text-4xl sm:text-5xl xl:text-6xl font-black text-white tracking-tight uppercase leading-[0.95] drop-shadow-lg">
+              <h2 className="text-4xl sm:text-5xl xl:text-6xl font-black text-white tracking-tight uppercase leading-[0.95] drop-shadow-2xl">
                 MON AARON
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-[#FF2A4D]">
@@ -78,8 +104,8 @@ export default function Hero() {
               </p>
             </div>
 
-            <p className="text-xs sm:text-sm text-gray-300/90 leading-relaxed max-w-sm font-normal">
-              I design and build robust, user-focused web platforms that combine high-integrity database architectures with cinematic frontends. Lead architect of{" "}
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-sm font-normal">
+              I design and build robust, user-focused web platforms combining high-integrity relational databases with cinematic frontends. Lead architect of{" "}
               <strong className="text-white font-semibold underline decoration-[#FF2A4D] decoration-2 underline-offset-4">
                 One Palayan-Kalinga Hub
               </strong>
@@ -89,7 +115,7 @@ export default function Hero() {
             {/* Availability Pill */}
             <div className="flex items-center gap-2 pt-1 text-xs font-mono text-gray-400">
               <span className="w-2 h-2 rounded-full bg-[#FF2A4D]" />
-              <span className="text-gray-300">AVAILABLE WORLDWIDE &amp; HYBRID</span>
+              <span className="text-gray-300">AVAILABLE FOR FREELANCE &amp; CIVIC TECH</span>
             </div>
 
             {/* CTAs */}
@@ -111,34 +137,27 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Center Column: Cutout Portrait Layered Directly OVER "PORTFOLIO" Text (4 cols) */}
-          <div className="lg:col-span-4 flex justify-center items-end relative -mb-6 z-20">
-            <div
-              className="relative w-[340px] sm:w-[420px] md:w-[460px] aspect-[896/1200] max-h-[640px] pointer-events-none transition-transform duration-200 ease-out"
-              style={{
-                transform: `translateX(${mousePos.x * 12}px) translateY(${mousePos.y * 6}px)`,
-              }}
-            >
-              {/* Radial ambient glow behind portrait */}
-              <div className="absolute inset-0 bg-[#FF2A4D]/15 blur-3xl rounded-full scale-90 -z-10" />
-
-              {/* The Authentic Cutout Portrait */}
+          {/* Mobile Center Portrait (Visible only below lg) */}
+          <div className="lg:hidden flex justify-center items-end relative z-20 my-2">
+            <div className="relative w-[340px] sm:w-[420px] aspect-[896/1200] max-h-[580px] pointer-events-none">
+              <div className="absolute inset-0 bg-[#FF2A4D]/20 blur-2xl rounded-full scale-90 -z-10" />
               <Image
                 src="/images/portrait-cutout.png"
-                alt="Mon Aaron Marcelo - Full-Stack Developer"
+                alt="Mon Aaron Marcelo"
                 fill
                 priority
-                className="object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
-                sizes="(max-width: 768px) 100vw, 460px"
+                className="object-contain object-bottom drop-shadow-2xl"
+                sizes="(max-width: 768px) 340px, 420px"
               />
-
-              {/* Bottom fade blending seamlessly into section background */}
-              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#07070A] via-[#07070A]/70 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#07070A] via-[#07070A]/80 to-transparent pointer-events-none" />
             </div>
           </div>
 
-          {/* Right Column: Mission Statement & Vertical Metrics (4 cols) */}
-          <div className="lg:col-span-4 space-y-6 pb-6 text-left lg:text-right flex flex-col justify-end lg:items-end z-10">
+          {/* Center Spacer on Desktop */}
+          <div className="hidden lg:block lg:col-span-4 xl:col-span-4 h-1 pointer-events-none" />
+
+          {/* Right Column: Mission Statement & Vertical Metrics (4 cols on lg) */}
+          <div className="lg:col-span-4 xl:col-span-4 space-y-6 pb-6 text-left lg:text-right flex flex-col justify-end lg:items-end z-30">
             {/* Sparkle callout */}
             <div className="flex items-center lg:justify-end gap-2 text-xs font-mono text-gray-300">
               <Sparkles className="w-3.5 h-3.5 text-[#FF2A4D] shrink-0" />
