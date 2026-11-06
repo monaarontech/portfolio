@@ -10,6 +10,7 @@ import {
   Sparkles,
   Zap,
   Volume2,
+  ArrowUpRight,
 } from "lucide-react";
 import {
   playClickSound,
@@ -231,18 +232,18 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Right Column: Bio Narrative & View Projects (Approx 3-4 cols) */}
+          {/* Right Column: Bio Narrative & View Projects */}
           <div className="lg:col-span-3 text-center lg:text-left flex flex-col items-center lg:items-start justify-center order-3 space-y-5">
             <div className="about-bio text-sm sm:text-base text-gray-300 leading-relaxed font-normal space-y-4">
               <p>
-                Saya adalah <strong className="text-white font-semibold">Junior Developer</strong> yang berfokus pada pengembangan teknologi yang fungsional sekaligus menarik. Saya senang memadukan kode, desain, dan pengalaman interaktif untuk membangun produk digital yang berkesan.
+                I am an aspiring <strong className="text-white font-semibold">Junior Developer</strong> dedicated to building digital products that are both functional and visually engaging. I love blending clean code, creative design, and interactive experiences to build memorable digital solutions.
               </p>
               <p className="text-gray-400">
-                Dengan <strong className="text-gray-200">React, Next.js, Three.js, dan teknologi web modern</strong>, saya mengubah ide menjadi pengalaman digital yang intuitif, responsif, dan berdampak.
+                With <strong className="text-gray-200">React, Next.js, TypeScript, and modern web tools</strong>, I turn complex concepts into intuitive, responsive, and impactful experiences.
               </p>
             </div>
 
-            {/* View Projects Secondary Button matching "</> Lihat Projek ↗" */}
+            {/* View Projects Button */}
             <div className="pt-2">
               <a
                 href="#projects"
@@ -250,8 +251,8 @@ export default function AboutSection() {
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 hover:border-cyan-400/60 text-white hover:text-cyan-400 text-xs sm:text-sm font-mono tracking-wide shadow-md transition-all duration-300 hover:scale-105"
               >
                 <Code2 className="w-4 h-4 text-cyan-400" />
-                <span>Lihat Projek</span>
-                <span className="text-cyan-400 font-bold">&nearr;</span>
+                <span>View Projects</span>
+                <ArrowUpRight className="w-4 h-4 text-cyan-400" />
               </a>
             </div>
           </div>
