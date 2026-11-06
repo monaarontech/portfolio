@@ -164,22 +164,22 @@ export default function AboutSection() {
 
               {/* Portrait Container with Smooth Bottom Fade */}
               <div className="about-portrait">
-                <div className="about-portrait-inner relative w-[280px] sm:w-[360px] md:w-[400px] h-[440px] sm:h-[500px] md:h-[540px]">
+                <div className="about-portrait-inner relative w-[280px] sm:w-[350px] md:w-[390px] aspect-[419/559]">
                   {/* Layer 1: Mon Aaron's Professional Suit Cutout */}
-                  <div className="about-person-image absolute inset-0 z-10 flex items-end justify-center pointer-events-none">
+                  <div className="about-person-image absolute inset-0 z-10 pointer-events-none">
                     <Image
                       src="/images/mon-aaron-suit.png"
                       alt="Mon Aaron Marcelo"
                       fill
                       priority
-                      className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]"
+                      className="object-cover object-top drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]"
                       sizes="(max-width: 768px) 320px, 420px"
                     />
                   </div>
 
-                  {/* Layer 2: Iron Man Suit / Mask Reveal Layer */}
+                  {/* Layer 2: Iron Man Suit / Mask Reveal Layer (Aligned to Face & Body) */}
                   <div
-                    className={`about-ironman-image absolute inset-0 z-20 flex items-end justify-center pointer-events-none transition-opacity duration-300 ${
+                    className={`about-ironman-image absolute inset-0 z-20 pointer-events-none transition-opacity duration-300 ${
                       isLockedFullArmor
                         ? "opacity-100 locked-full"
                         : isHovered
@@ -187,20 +187,26 @@ export default function AboutSection() {
                         : "opacity-0"
                     }`}
                   >
-                    <Image
-                      src="/images/ironman-suit.jpg"
-                      alt="Iron Man Armor Mode"
-                      fill
-                      className="object-contain object-bottom filter saturate-110 contrast-110"
-                      sizes="(max-width: 768px) 320px, 420px"
-                    />
+                    <div
+                      className="relative w-full h-full overflow-hidden"
+                      style={{
+                        transform: "scale(1.22) translate(1.5%, 4%)",
+                        transformOrigin: "center top",
+                      }}
+                    >
+                      <Image
+                        src="/images/ironman-suit.jpg"
+                        alt="Iron Man Armor Mode"
+                        fill
+                        priority
+                        className="object-cover object-top filter saturate-110 contrast-110"
+                        sizes="(max-width: 768px) 320px, 420px"
+                      />
 
-                    {/* Arc Reactor Center Glowing Light FX */}
-                    <div className="absolute top-[46%] left-[62%] -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-cyan-300/40 blur-md pointer-events-none animate-pulse" />
-                    <div className="absolute top-[46%] left-[62%] -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white shadow-[0_0_20px_#00F0FF,0_0_35px_#00F0FF] pointer-events-none" />
-
-                    {/* Repulsor Glow on hand */}
-                    <div className="absolute top-[29%] left-[17%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cyan-300/35 blur-sm pointer-events-none" />
+                      {/* Arc Reactor Center Glowing Light FX */}
+                      <div className="absolute top-[70.2%] left-[62.5%] -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-cyan-300/40 blur-md pointer-events-none animate-pulse" />
+                      <div className="absolute top-[70.2%] left-[62.5%] -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white shadow-[0_0_20px_#00F0FF,0_0_35px_#00F0FF] pointer-events-none" />
+                    </div>
                   </div>
                 </div>
               </div>

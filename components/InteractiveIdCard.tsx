@@ -124,10 +124,13 @@ export default function InteractiveIdCard() {
           </div>
 
           {/* The Physical Card Container (300px x 510px, approx 591x1004 ratio) */}
-          <div className="relative w-[280px] sm:w-[320px] aspect-[591/1004] rounded-2xl p-1 bg-gradient-to-b from-white/20 via-white/10 to-white/5 backdrop-blur-xl border border-white/25 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden">
+          <div
+            className="relative w-[280px] sm:w-[320px] aspect-[591/1004] rounded-2xl p-1 bg-gradient-to-b from-white/20 via-white/10 to-white/5 backdrop-blur-xl border border-white/25 shadow-[0_20px_50px_rgba(0,0,0,0.85)]"
+            style={{ transformStyle: "preserve-3d" }}
+          >
             {/* Dynamic Glass Specular Glare Layer */}
             <div
-              className="absolute inset-0 pointer-events-none z-30 opacity-40 group-hover:opacity-60 transition-opacity"
+              className="absolute inset-0 pointer-events-none z-30 rounded-2xl opacity-40 group-hover:opacity-60 transition-opacity"
               style={{
                 background: `radial-gradient(circle at ${tilt.glareX}% ${tilt.glareY}%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.08) 40%, transparent 70%)`,
               }}
@@ -135,10 +138,14 @@ export default function InteractiveIdCard() {
 
             {/* FRONT FACE of the ID Card */}
             <div
-              className="absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D]"
+              className="absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D] transition-opacity duration-300"
               style={{
                 backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
                 transform: "rotateY(0deg)",
+                zIndex: isFlipped ? 0 : 2,
+                opacity: isFlipped ? 0 : 1,
+                pointerEvents: isFlipped ? "none" : "auto",
               }}
             >
               <Image
@@ -156,10 +163,14 @@ export default function InteractiveIdCard() {
 
             {/* BACK FACE of the ID Card (QR Code & Connect Info) */}
             <div
-              className="absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D]"
+              className="absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D] transition-opacity duration-300"
               style={{
                 backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
+                zIndex: isFlipped ? 2 : 0,
+                opacity: isFlipped ? 1 : 0,
+                pointerEvents: isFlipped ? "auto" : "none",
               }}
             >
               <Image
