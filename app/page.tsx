@@ -3,12 +3,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TechMarquee from "@/components/TechMarquee";
 import AboutSection from "@/components/AboutSection";
-import FlagshipProject from "@/components/FlagshipProject";
-import ProjectsGallery from "@/components/ProjectsGallery";
-import InteractiveDevStudio from "@/components/InteractiveDevStudio";
-import PlaygroundSection from "@/components/PlaygroundSection";
-import SkillsMatrix from "@/components/SkillsMatrix";
-import WorkProcess from "@/components/WorkProcess";
+import PortfolioSection from "@/components/PortfolioSection";
 import SocialMediaSection from "@/components/SocialMediaSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -24,12 +19,7 @@ export default function Home() {
       <Hero />
       <TechMarquee />
       <AboutSection />
-      <FlagshipProject />
-      <ProjectsGallery />
-      <InteractiveDevStudio />
-      <PlaygroundSection />
-      <SkillsMatrix />
-      <WorkProcess />
+      <PortfolioSection />
       <SocialMediaSection />
       <ContactSection />
       <Footer />

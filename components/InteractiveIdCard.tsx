@@ -7,7 +7,7 @@ import { triggerAchievementUnlock } from "@/components/AchievementSystem";
 
 export default function InteractiveIdCard() {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [showBackImage, setShowBackImage] = useState(false);
+  const [currentImage, setCurrentImage] = useState("/images/id-front.png");
   const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const cardContainerRef = useRef<HTMLDivElement>(null);
@@ -44,10 +44,10 @@ export default function InteractiveIdCard() {
     const nextFlipped = !isFlipped;
     setIsFlipped(nextFlipped);
 
-    // Switch visible face at the exact 260ms midpoint of the 550ms flip
+    // Switch image right at the 270ms midpoint (90-degree edge-on moment)
     setTimeout(() => {
-      setShowBackImage(nextFlipped);
-    }, 260);
+      setCurrentImage(nextFlipped ? "/images/id-back.png" : "/images/id-front.png");
+    }, 270);
 
     triggerAchievementUnlock("secret_agent");
   };
@@ -59,7 +59,7 @@ export default function InteractiveIdCard() {
         {/* Top ceiling anchor grommet */}
         <div className="w-10 h-3 rounded-full bg-gradient-to-b from-gray-700 to-gray-900 border border-white/20 shadow-lg" />
 
-        {/* V-Neck Fabric Lanyard Straps with subtle counter-sway */}
+        {/* V-Neck Fabric Lanyard Straps with realistic counter-sway */}
         <div className="relative w-28 h-28 flex justify-center animate-[lanyardSway_4.2s_ease-in-out_infinite]">
           {/* Left Ribbon Strap */}
           <div
@@ -98,7 +98,7 @@ export default function InteractiveIdCard() {
         </div>
       </div>
 
-      {/* 2. Hanging ID Card with Enhanced Swingy Pendulum Physics */}
+      {/* 2. Hanging ID Card with Enhanced Pendulum Swing Physics */}
       <div
         ref={cardContainerRef}
         onMouseMove={handleMouseMove}
@@ -117,7 +117,6 @@ export default function InteractiveIdCard() {
           className="relative transition-transform duration-550 ease-out"
           style={{
             transformStyle: "preserve-3d",
-            WebkitTransformStyle: "preserve-3d",
             transform: `rotateX(${tilt.x}deg) rotateY(${
               (isFlipped ? 180 : 0) + tilt.y
             }deg) scale3d(${isHovered ? 1.03 : 1}, ${isHovered ? 1.03 : 1}, 1)`,
@@ -130,52 +129,23 @@ export default function InteractiveIdCard() {
           </div>
 
           {/* The Physical Card Container (approx 591x1004 ratio) */}
-          <div
-            className="relative w-[280px] sm:w-[320px] aspect-[591/1004] rounded-2xl p-1 bg-gradient-to-b from-white/20 via-white/10 to-white/5 backdrop-blur-xl border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.9)]"
-            style={{
-              transformStyle: "preserve-3d",
-              WebkitTransformStyle: "preserve-3d",
-            }}
-          >
-            {/* FRONT FACE of the ID Card */}
-            <div
-              className={`absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D] transition-opacity duration-200 ${
-                showBackImage ? "opacity-0 pointer-events-none" : "opacity-100"
-              }`}
-              style={{
-                backfaceVisibility: "hidden",
-                WebkitBackfaceVisibility: "hidden",
-                transform: "rotateY(0deg) translateZ(1px)",
-              }}
-            >
+          <div className="relative w-[280px] sm:w-[320px] aspect-[591/1004] rounded-2xl p-1 bg-gradient-to-b from-white/20 via-white/10 to-white/5 border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden">
+            {/* The Active Display Card Face */}
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-[#1E222D]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/id-front.png"
-                alt="Mon Aaron Marcelo - Junior Developer ID Card Front"
-                className="w-full h-full object-cover object-center select-none"
+                src={currentImage}
+                alt={isFlipped ? "Mon Aaron Marcelo - Connect QR Code Back" : "Mon Aaron Marcelo - Junior Developer ID Card Front"}
+                className="w-full h-full object-cover object-center select-none pointer-events-none transition-transform duration-100"
+                style={{
+                  transform: isFlipped ? "scaleX(-1)" : "none",
+                }}
               />
 
-              {/* Holographic NEUST Seal Shimmer */}
-              <div className="absolute top-2 left-2 w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-400/25 via-amber-300/20 to-transparent pointer-events-none animate-pulse" />
-            </div>
-
-            {/* BACK FACE of the ID Card (QR Code & Connect Info) */}
-            <div
-              className={`absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D] transition-opacity duration-200 ${
-                showBackImage ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-              style={{
-                backfaceVisibility: "hidden",
-                WebkitBackfaceVisibility: "hidden",
-                transform: "rotateY(180deg) translateZ(1px)",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/id-back.png"
-                alt="Mon Aaron Marcelo - Connect QR Code Back"
-                className="w-full h-full object-cover object-center select-none"
-              />
+              {/* Holographic NEUST Seal Shimmer (on front) */}
+              {!isFlipped && (
+                <div className="absolute top-2 left-2 w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-400/25 via-amber-300/20 to-transparent pointer-events-none animate-pulse" />
+              )}
             </div>
           </div>
         </div>

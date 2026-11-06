@@ -15,7 +15,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
-      const sections = ["hero", "about", "flagship", "projects", "dev-studio", "playground", "skills", "social", "contact"];
+      const sections = ["hero", "about", "portfolio", "social", "contact"];
       const scrollPos = window.scrollY + 220;
 
       for (const section of sections) {
@@ -36,12 +36,9 @@ export default function Navbar() {
   }, []);
 
   const navItems = [
+    { label: "Home", href: "#hero", id: "hero" },
     { label: "About", href: "#about", id: "about" },
-    { label: "Palayan Hub", href: "#flagship", id: "flagship" },
-    { label: "Projects", href: "#projects", id: "projects" },
-    { label: "Dev Studio", href: "#dev-studio", id: "dev-studio" },
-    { label: "Playground", href: "#playground", id: "playground" },
-    { label: "Skills", href: "#skills", id: "skills" },
+    { label: "Portfolio", href: "#portfolio", id: "portfolio" },
     { label: "Find Me", href: "#social", id: "social" },
     { label: "Contact", href: "#contact", id: "contact" },
   ];

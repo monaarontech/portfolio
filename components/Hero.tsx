@@ -115,7 +115,7 @@ export default function Hero() {
             {/* Interactive Call-to-Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
-                href="#flagship"
+                href="#portfolio"
                 className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#FF2A4D] via-[#E50914] to-[#B30010] shadow-xl shadow-[#FF2A4D]/35 hover:shadow-[#FF2A4D]/55 transition-all hover:scale-[1.03] active:scale-[0.98]"
               >
                 <span>Explore My Portfolio</span>

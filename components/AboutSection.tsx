@@ -246,7 +246,7 @@ export default function AboutSection() {
             {/* View Projects Button */}
             <div className="pt-2">
               <a
-                href="#projects"
+                href="#portfolio"
                 onClick={() => playClickSound()}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 hover:border-cyan-400/60 text-white hover:text-cyan-400 text-xs sm:text-sm font-mono tracking-wide shadow-md transition-all duration-300 hover:scale-105"
               >
