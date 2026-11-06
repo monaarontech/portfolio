@@ -22,7 +22,7 @@ export default function Hero() {
     <section
       id="hero"
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen pt-28 pb-16 flex flex-col justify-between overflow-hidden bg-[#07070A] border-b border-white/5 select-none"
+      className="relative min-h-screen pt-28 pb-16 flex flex-col justify-between overflow-hidden bg-transparent border-b border-white/5 select-none"
     >
       {/* 1. Subtle Ambient Background Lighting (Modern Minimalist Deep Glows) */}
       <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-b from-[#FF2A4D]/15 via-purple-600/10 to-transparent blur-[160px] pointer-events-none -z-20" />

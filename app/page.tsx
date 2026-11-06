@@ -1,4 +1,5 @@
 import React from "react";
+import CinematicBackground from "@/components/CinematicBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TechMarquee from "@/components/TechMarquee";
@@ -13,7 +14,8 @@ import AchievementSystem from "@/components/AchievementSystem";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#07070A] text-[#F5F5F7] relative selection:bg-[#FF2A4D] selection:text-white">
+    <main className="min-h-screen bg-transparent text-[#F5F5F7] relative selection:bg-[#FF2A4D] selection:text-white">
+      <CinematicBackground />
       <ScrollProgress />
       <Navbar />
       <Hero />

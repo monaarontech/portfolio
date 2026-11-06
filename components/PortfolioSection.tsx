@@ -329,7 +329,7 @@ export default function PortfolioSection() {
   ];
 
   return (
-    <section id="portfolio" className="py-24 sm:py-32 bg-[#050811] relative overflow-hidden border-b border-white/5">
+    <section id="portfolio" className="py-24 sm:py-32 bg-transparent relative overflow-hidden border-b border-white/5">
       {/* Background ambient lighting matching alfari.my.id */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-blue-600/10 blur-[180px] pointer-events-none -z-10" />
       <div className="absolute top-10 right-10 w-72 h-72 bg-red-600/10 blur-[140px] pointer-events-none -z-10" />

@@ -20,7 +20,7 @@ export default function TechMarquee() {
   ];
 
   return (
-    <div className="py-6 bg-[#0B0D14] border-y border-white/5 overflow-hidden relative select-none">
+    <div className="py-6 bg-[#0B0D14]/70 backdrop-blur-md border-y border-white/5 overflow-hidden relative select-none">
       {/* Side Vignettes */}
       <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#090A0F] to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#090A0F] to-transparent z-10 pointer-events-none" />

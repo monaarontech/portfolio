@@ -40,7 +40,7 @@ export default function SocialMediaSection() {
   };
 
   return (
-    <section id="social" className="py-24 bg-[#07080C] relative overflow-hidden border-b border-white/5">
+    <section id="social" className="py-24 bg-transparent relative overflow-hidden border-b border-white/5">
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-gradient-to-r from-blue-600/10 via-[#FF2A4D]/10 to-cyan-500/10 blur-[160px] pointer-events-none -z-10" />
 

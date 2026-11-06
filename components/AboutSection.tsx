@@ -79,7 +79,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="py-24 sm:py-32 bg-[#050811] relative overflow-hidden border-b border-white/5 select-none"
+      className="py-24 sm:py-32 bg-transparent relative overflow-hidden border-b border-white/5 select-none"
     >
       {/* Background Starfield / Cosmic Ambient Lighting */}
       <div className="absolute inset-0 pointer-events-none -z-10">
