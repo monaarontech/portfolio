@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import Image from "next/image";
-import { QrCode, RotateCw, ExternalLink, Sparkles, CheckCircle2 } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { RotateCw, ExternalLink } from "lucide-react";
 import { playCardFlipSound, playHoverSound } from "@/utils/soundEffects";
 import { triggerAchievementUnlock } from "@/components/AchievementSystem";
 
 export default function InteractiveIdCard() {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [showBackImage, setShowBackImage] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const cardContainerRef = useRef<HTMLDivElement>(null);
@@ -22,8 +22,8 @@ export default function InteractiveIdCard() {
     const normY = (y / rect.height - 0.5) * 2; // -1 to 1
 
     setTilt({
-      x: normY * -10, // rotateX
-      y: normX * 12, // rotateY
+      x: normY * -12, // rotateX
+      y: normX * 14, // rotateY
       glareX: (x / rect.width) * 100,
       glareY: (y / rect.height) * 100,
     });
@@ -41,7 +41,14 @@ export default function InteractiveIdCard() {
 
   const handleFlipCard = () => {
     playCardFlipSound();
-    setIsFlipped((prev) => !prev);
+    const nextFlipped = !isFlipped;
+    setIsFlipped(nextFlipped);
+
+    // Switch visible face at the exact 260ms midpoint of the 550ms flip
+    setTimeout(() => {
+      setShowBackImage(nextFlipped);
+    }, 260);
+
     triggerAchievementUnlock("secret_agent");
   };
 
@@ -52,8 +59,8 @@ export default function InteractiveIdCard() {
         {/* Top ceiling anchor grommet */}
         <div className="w-10 h-3 rounded-full bg-gradient-to-b from-gray-700 to-gray-900 border border-white/20 shadow-lg" />
 
-        {/* V-Neck Fabric Lanyard Straps */}
-        <div className="relative w-28 h-28 flex justify-center">
+        {/* V-Neck Fabric Lanyard Straps with subtle counter-sway */}
+        <div className="relative w-28 h-28 flex justify-center animate-[lanyardSway_4.2s_ease-in-out_infinite]">
           {/* Left Ribbon Strap */}
           <div
             className="absolute top-0 right-1/2 w-6 h-28 origin-top-right rotate-[-12deg] bg-[#141E33] shadow-md border-x border-[#00F0FF]/20 overflow-hidden"
@@ -91,30 +98,29 @@ export default function InteractiveIdCard() {
         </div>
       </div>
 
-      {/* 2. Hanging ID Card with Realistic 3D Pendulum Physics & Smooth Flip */}
+      {/* 2. Hanging ID Card with Enhanced Swingy Pendulum Physics */}
       <div
         ref={cardContainerRef}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleFlipCard}
-        className={`group relative cursor-pointer ${
-          isHovered || isFlipped ? "" : "animate-[cardSwing_6s_ease-in-out_infinite]"
-        }`}
+        className="group relative cursor-pointer animate-[cardSwing_4.2s_ease-in-out_infinite]"
         style={{
           transformOrigin: "top center",
           perspective: 1200,
         }}
         title="Click to flip ID card (reveal QR code)!"
       >
-        {/* Dynamic Card Sleeve / Perspective Wrapper */}
+        {/* Dynamic Card Sleeve / Perspective Wrapper (Handles 3D Flip & Interactive Mouse Tilt) */}
         <div
-          className="relative transition-transform duration-500 ease-out"
+          className="relative transition-transform duration-550 ease-out"
           style={{
             transformStyle: "preserve-3d",
+            WebkitTransformStyle: "preserve-3d",
             transform: `rotateX(${tilt.x}deg) rotateY(${
               (isFlipped ? 180 : 0) + tilt.y
-            }deg) scale3d(${isHovered ? 1.02 : 1}, ${isHovered ? 1.02 : 1}, 1)`,
+            }deg) scale3d(${isHovered ? 1.03 : 1}, ${isHovered ? 1.03 : 1}, 1)`,
           }}
         >
           {/* Top Acrylic Slot Loop */}
@@ -123,9 +129,9 @@ export default function InteractiveIdCard() {
             <div className="w-5 h-2 rounded-full bg-black/80 border border-white/20 shadow-inner" />
           </div>
 
-          {/* The Physical Card Container (300px x 510px, approx 591x1004 ratio) */}
+          {/* The Physical Card Container (approx 591x1004 ratio) */}
           <div
-            className="relative w-[280px] sm:w-[320px] aspect-[591/1004] rounded-2xl p-1 bg-gradient-to-b from-white/20 via-white/10 to-white/5 backdrop-blur-xl border border-white/25 shadow-[0_20px_50px_rgba(0,0,0,0.85)]"
+            className="relative w-[280px] sm:w-[320px] aspect-[591/1004] rounded-2xl p-1 bg-gradient-to-b from-white/20 via-white/10 to-white/5 backdrop-blur-xl border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.9)]"
             style={{
               transformStyle: "preserve-3d",
               WebkitTransformStyle: "preserve-3d",
@@ -133,44 +139,42 @@ export default function InteractiveIdCard() {
           >
             {/* FRONT FACE of the ID Card */}
             <div
-              className="absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D]"
+              className={`absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D] transition-opacity duration-200 ${
+                showBackImage ? "opacity-0 pointer-events-none" : "opacity-100"
+              }`}
               style={{
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
-                transform: "rotateY(0deg) translateZ(2px)",
+                transform: "rotateY(0deg) translateZ(1px)",
               }}
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/images/id-front.png"
                 alt="Mon Aaron Marcelo - Junior Developer ID Card Front"
-                fill
-                priority
-                unoptimized
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 280px, 320px"
+                className="w-full h-full object-cover object-center select-none"
               />
 
               {/* Holographic NEUST Seal Shimmer */}
-              <div className="absolute top-2 left-2 w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-400/20 via-amber-300/20 to-transparent pointer-events-none animate-pulse" />
+              <div className="absolute top-2 left-2 w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-400/25 via-amber-300/20 to-transparent pointer-events-none animate-pulse" />
             </div>
 
             {/* BACK FACE of the ID Card (QR Code & Connect Info) */}
             <div
-              className="absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D]"
+              className={`absolute inset-1 rounded-xl overflow-hidden bg-[#1E222D] transition-opacity duration-200 ${
+                showBackImage ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
               style={{
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
-                transform: "rotateY(180deg) translateZ(2px)",
+                transform: "rotateY(180deg) translateZ(1px)",
               }}
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/images/id-back.png"
                 alt="Mon Aaron Marcelo - Connect QR Code Back"
-                fill
-                priority
-                unoptimized
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 280px, 320px"
+                className="w-full h-full object-cover object-center select-none"
               />
             </div>
           </div>
@@ -182,7 +186,7 @@ export default function InteractiveIdCard() {
         <div className="flex flex-wrap items-center justify-center gap-2">
           <button
             onClick={handleFlipCard}
-            className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#12141F]/90 border border-white/15 hover:border-[#00F0FF]/50 text-xs font-mono text-gray-300 hover:text-white shadow-xl shadow-black/50 transition-all hover:scale-105"
+            className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#12141F]/90 border border-white/15 hover:border-[#00F0FF]/50 text-xs font-mono text-gray-300 hover:text-white shadow-xl shadow-black/50 transition-all hover:scale-105 active:scale-95"
           >
             <RotateCw className="w-3.5 h-3.5 text-[#00F0FF] group-hover:rotate-180 transition-transform duration-500" />
             <span>{isFlipped ? "Flip to ID Front" : "Click to Flip Card (Scan QR)"}</span>
@@ -202,27 +206,45 @@ export default function InteractiveIdCard() {
         </div>
 
         <p className="text-[10px] font-mono text-gray-400">
-          {isFlipped ? "📱 Scan QR code to connect on Facebook" : "Hover to tilt • Realistic hanging lanyard"}
+          {isFlipped ? "📱 Scan QR code to connect on Facebook" : "Hover to tilt • Realistic pendulum swinging lanyard"}
         </p>
       </div>
 
-      {/* Keyframe animation for natural pendulum swinging */}
+      {/* Enhanced Fluid Pendulum Swing Keyframe Animations */}
       <style jsx global>{`
         @keyframes cardSwing {
           0% {
-            transform: rotateZ(0deg) rotateY(0deg);
+            transform: rotateZ(0deg) rotateY(0deg) rotateX(1deg);
           }
-          25% {
-            transform: rotateZ(-2.2deg) rotateY(-3deg);
+          18% {
+            transform: rotateZ(-6.5deg) rotateY(-5deg) rotateX(-2.5deg);
           }
-          50% {
-            transform: rotateZ(0deg) rotateY(0deg);
+          38% {
+            transform: rotateZ(1.2deg) rotateY(1.5deg) rotateX(1.5deg);
           }
-          75% {
-            transform: rotateZ(2.2deg) rotateY(3deg);
+          62% {
+            transform: rotateZ(6deg) rotateY(5deg) rotateX(-2deg);
+          }
+          82% {
+            transform: rotateZ(-1.8deg) rotateY(-1.5deg) rotateX(1deg);
           }
           100% {
-            transform: rotateZ(0deg) rotateY(0deg);
+            transform: rotateZ(0deg) rotateY(0deg) rotateX(1deg);
+          }
+        }
+
+        @keyframes lanyardSway {
+          0% {
+            transform: rotateZ(0deg);
+          }
+          20% {
+            transform: rotateZ(-2.5deg);
+          }
+          60% {
+            transform: rotateZ(2.2deg);
+          }
+          100% {
+            transform: rotateZ(0deg);
           }
         }
       `}</style>
