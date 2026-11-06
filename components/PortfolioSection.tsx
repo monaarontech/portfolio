@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Calendar,
   X,
+  Maximize2,
 } from "lucide-react";
 import { playClickSound, playHoverSound } from "@/utils/soundEffects";
 import { FLAGSHIP_PROJECT, SUPPORTING_PROJECTS, Project } from "@/data/portfolioData";
@@ -22,6 +23,7 @@ import { FLAGSHIP_PROJECT, SUPPORTING_PROJECTS, Project } from "@/data/portfolio
 export default function PortfolioSection() {
   const [activeTab, setActiveTab] = useState<"projects" | "certificates" | "achievements" | "stack">("projects");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedCertificate, setSelectedCertificate] = useState<any | null>(null);
 
   const allProjects: Project[] = [FLAGSHIP_PROJECT, ...SUPPORTING_PROJECTS];
 
@@ -31,6 +33,90 @@ export default function PortfolioSection() {
     { id: "achievements", label: "Achievements", icon: Trophy },
     { id: "stack", label: "Tech Stack", icon: Layers },
   ] as const;
+
+  // Real Verified Certificates Uploaded by Mon Aaron Marcelo
+  const certificatesList = [
+    {
+      id: "cert-dict-google-workspace",
+      title: "ICT Skills Training: Google Workspace",
+      issuer: "DICT Region III & ILCDB",
+      date: "August 11, 2026",
+      status: "Verified Official Credential",
+      image: "/images/certificates/cert-dict-google-workspace.jpg",
+      credentialId: "2026-08-PAM-WB-02-OL-381",
+      description: "Official 3-hour competency training on professional Google Workspace collaboration tools conducted by DICT Region 3.",
+      tags: ["DICT Region III", "Google Workspace", "Cloud Tools"],
+    },
+    {
+      id: "cert-dict-ai-business",
+      title: "Introduction to AI for Business Advertising",
+      issuer: "DICT Region II & Quirino Provincial Office",
+      date: "August 6, 2026",
+      status: "Verified Official Credential",
+      image: "/images/certificates/cert-dict-ai-business.jpg",
+      credentialId: "ILCD_R2_ISDDL_2026_73",
+      description: "Explored artificial intelligence integration in modern digital advertising, content creation, and MSME growth strategies.",
+      tags: ["DICT Region II", "Artificial Intelligence", "MSME Strategy"],
+    },
+    {
+      id: "cert-techacademy-ccna",
+      title: "Growing Your I.T. Career: CCNA Networking",
+      issuer: "Tech Academy (Billy Ramirez IT Solutions)",
+      date: "August 1, 2026",
+      status: "Verified Official Credential",
+      image: "/images/certificates/cert-techacademy-ccna.jpg",
+      credentialId: "YFNNAS-CE000213",
+      description: "Webinar on Cisco Certified Network Associate (CCNA) fundamentals, routing & switching protocols, and network architecture.",
+      tags: ["Tech Academy", "CCNA", "Networking"],
+    },
+    {
+      id: "cert-dict-gamedev",
+      title: "PRESS START: Game Development in Modern Era",
+      issuer: "DICT Regional Office VIII & IIDB",
+      date: "August 17, 2026",
+      status: "Verified Official Credential",
+      image: "/images/certificates/cert-dict-gamedev.jpg",
+      credentialId: "DICT Region VIII IIDB",
+      description: "Technical workshop on hobbyist and modern game development pipelines, interactive physics, and digital creative production.",
+      tags: ["DICT Region VIII", "Game Development", "Interactive Tech"],
+    },
+    {
+      id: "cert-techacademy-it-cert",
+      title: "How to Grow Your Career with IT Certifications",
+      issuer: "Tech Academy (Billy Ramirez IT Solutions)",
+      date: "October 3, 2026",
+      status: "Verified Official Credential",
+      image: "/images/certificates/cert-techacademy-it-cert.jpg",
+      credentialId: "TAPH-CE000251",
+      description: "Strategic insights into IT certification roadmaps, industry qualifications, and professional engineering pathways.",
+      tags: ["Tech Academy", "Career Strategy", "IT Certifications"],
+    },
+  ];
+
+  // Major Career & Academic Achievements
+  const achievementsList = [
+    {
+      number: "01",
+      title: "One Palayan-Kalinga Hub Municipal Deployment",
+      category: "Capstone Achievement",
+      metric: "100% ISO 25010 Evaluated",
+      summary: "Spearheaded the design, frontend, and database architecture of a mission-critical platform serving municipal residents and social welfare officers.",
+    },
+    {
+      number: "02",
+      title: "NEUST Academic Scholar & Technical Lead",
+      category: "Academic Achievement",
+      metric: "Top Tier Standing",
+      summary: "Maintained exceptional academic standing while mentoring peers in web development, database normalization, and modern JavaScript frameworks.",
+    },
+    {
+      number: "03",
+      title: "Production CI/CD & Multi-System Engineering",
+      category: "Engineering Achievement",
+      metric: "5+ Systems Built",
+      summary: "Architected end-to-end applications from authentication gateways to physics engines with automated GitHub workflows and Vercel cloud hosting.",
+    },
+  ];
 
   // Curated Tech Stack matching Screenshot 3 from alfari.my.id
   const techStackList = [
@@ -228,62 +314,6 @@ export default function PortfolioSection() {
     },
   ];
 
-  // Verified Certificates placeholder data ready for user photos
-  const certificatesList = [
-    {
-      id: "cert-neust-academic",
-      title: "Academic Excellence & Dean's List Award",
-      issuer: "Nueva Ecija University of Science and Technology",
-      date: "Academic Year 2023 - 2024",
-      status: "Verified Official Credential",
-      description: "Recognized for exemplary academic performance and technical project leadership at NEUST College of Information and Communications Technology.",
-      tags: ["NEUST", "Academic Excellence", "Leadership"],
-    },
-    {
-      id: "cert-kalinga-capstone",
-      title: "Lead Developer — Municipal Capstone Project",
-      issuer: "LGU Palayan City & NEUST ICT Evaluation Board",
-      date: "Completed 2024",
-      status: "ISO/IEC 25010 Evaluated",
-      description: "Designed and engineered the municipal welfare architecture for One Palayan-Kalinga Hub, meeting rigorous international software quality standards.",
-      tags: ["ISO/IEC 25010", "System Architecture", "Public Welfare"],
-    },
-    {
-      id: "cert-fullstack-spec",
-      title: "Full-Stack Web Engineering Certification",
-      issuer: "ICT Specialization Board",
-      date: "2024",
-      status: "Completed with Distinction",
-      description: "Certified proficiency in responsive UI development, RESTful APIs, relational schema normalization, and production cloud deployments.",
-      tags: ["Full Stack", "React & Next.js", "MySQL & PHP"],
-    },
-  ];
-
-  // Major Career & Academic Achievements
-  const achievementsList = [
-    {
-      number: "01",
-      title: "One Palayan-Kalinga Hub Municipal Deployment",
-      category: "Capstone Achievement",
-      metric: "100% ISO 25010 Evaluated",
-      summary: "Spearheaded the design, frontend, and database architecture of a mission-critical platform serving municipal residents and social welfare officers.",
-    },
-    {
-      number: "02",
-      title: "NEUST Academic Scholar & Technical Lead",
-      category: "Academic Achievement",
-      metric: "Top Tier Standing",
-      summary: "Maintained exceptional academic standing while mentoring peers in web development, database normalization, and modern JavaScript frameworks.",
-    },
-    {
-      number: "03",
-      title: "Production CI/CD & Multi-System Engineering",
-      category: "Engineering Achievement",
-      metric: "5+ Systems Built",
-      summary: "Architected end-to-end applications from authentication gateways to physics engines with automated GitHub workflows and Vercel cloud hosting.",
-    },
-  ];
-
   return (
     <section id="portfolio" className="py-24 sm:py-32 bg-[#050811] relative overflow-hidden border-b border-white/5">
       {/* Background ambient lighting matching alfari.my.id */}
@@ -407,34 +437,53 @@ export default function PortfolioSection() {
           </div>
         )}
 
-        {/* TAB 2: CERTIFICATES (Ready for user pictures) */}
+        {/* TAB 2: CERTIFICATES (With Real User Uploaded Certificates & Lightbox) */}
         {activeTab === "certificates" && (
           <div className="space-y-8 animate-fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {certificatesList.map((cert) => (
                 <div
                   key={cert.id}
-                  className="rounded-2xl bg-[#0B0F19] border border-white/10 hover:border-cyan-400/40 p-6 flex flex-col justify-between space-y-4 transition-all hover:-translate-y-1 shadow-lg"
+                  onClick={() => {
+                    playClickSound();
+                    setSelectedCertificate(cert);
+                  }}
+                  className="group rounded-2xl bg-[#0B0F19] border border-white/10 hover:border-cyan-400/50 p-5 flex flex-col justify-between space-y-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(0,0,0,0.85)] cursor-pointer"
                 >
                   <div className="space-y-3">
-                    {/* Placeholder Frame for Certificate Picture */}
-                    <div className="w-full aspect-[4/3] rounded-xl bg-[#141824] border border-dashed border-white/20 flex flex-col items-center justify-center p-4 text-center group-hover:border-cyan-400/50 transition-colors">
-                      <Award className="w-10 h-10 text-cyan-400/80 mb-2" />
-                      <span className="text-xs font-mono font-bold text-gray-200">{cert.title}</span>
-                      <span className="text-[10px] font-mono text-gray-500 mt-1">{cert.issuer}</span>
-                      <span className="mt-3 px-2 py-0.5 rounded bg-white/5 text-[9px] font-mono text-cyan-400 border border-white/10">
-                        {cert.status}
-                      </span>
+                    {/* Real Certificate Image Preview with Zoom Indicator */}
+                    <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#141824] border border-white/10 group-hover:border-cyan-400/50 transition-colors">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3 justify-between">
+                        <span className="text-[10px] font-mono text-cyan-300 flex items-center gap-1">
+                          <Maximize2 className="w-3 h-3" /> Click to view full certificate
+                        </span>
+                      </div>
                     </div>
 
                     <div className="space-y-1">
-                      <h4 className="text-base font-bold text-white">{cert.title}</h4>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono text-gray-500">{cert.date}</span>
+                        <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-[9px] font-mono font-bold text-cyan-400 border border-cyan-500/25">
+                          {cert.status}
+                        </span>
+                      </div>
+                      <h4 className="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">
+                        {cert.title}
+                      </h4>
                       <p className="text-xs text-cyan-400 font-mono">{cert.issuer}</p>
-                      <p className="text-xs text-gray-400 leading-relaxed pt-1">{cert.description}</p>
+                      <p className="text-xs text-gray-400 leading-relaxed pt-1 line-clamp-2">
+                        {cert.description}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/5">
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
                     {cert.tags.map((tag) => (
                       <span
                         key={tag}
@@ -449,8 +498,9 @@ export default function PortfolioSection() {
             </div>
 
             {/* Informative Helper Badge */}
-            <div className="p-4 rounded-xl bg-[#121624] border border-white/10 text-center max-w-xl mx-auto text-xs font-mono text-gray-400">
-              📌 Certificate images can be seamlessly uploaded and displayed here.
+            <div className="p-4 rounded-xl bg-[#121624] border border-white/10 text-center max-w-xl mx-auto text-xs font-mono text-gray-400 flex items-center justify-center gap-2">
+              <Sparkles className="w-4 h-4 text-cyan-400" />
+              <span>More official certifications being added soon.</span>
             </div>
           </div>
         )}
@@ -510,6 +560,52 @@ export default function PortfolioSection() {
           </div>
         )}
       </div>
+
+      {/* Certificate Lightbox Modal (Click on any certificate to view high-res) */}
+      {selectedCertificate && (
+        <div
+          onClick={() => setSelectedCertificate(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in cursor-zoom-out"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-4xl rounded-3xl bg-[#0E121E] border border-white/20 p-4 sm:p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto cursor-default"
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold text-white">
+                  {selectedCertificate.title}
+                </h3>
+                <p className="text-xs font-mono text-cyan-400">
+                  {selectedCertificate.issuer} &bull; {selectedCertificate.date}
+                </p>
+              </div>
+              <button
+                onClick={() => setSelectedCertificate(null)}
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="relative w-full rounded-2xl overflow-hidden bg-black/60 border border-white/10 flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={selectedCertificate.image}
+                alt={selectedCertificate.title}
+                className="w-full max-h-[70vh] object-contain rounded-xl select-none"
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-gray-400 pt-2">
+              <span>Credential ID: <strong className="text-white">{selectedCertificate.credentialId}</strong></span>
+              <span className="text-emerald-400 flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5" /> Official Verified Issuer
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Project Case Study Modal (when Details is clicked) */}
       {selectedProject && (
