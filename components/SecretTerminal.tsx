@@ -138,18 +138,22 @@ export default function SecretTerminal() {
       case "projects":
         outputNode = (
           <div className="space-y-2 text-xs font-mono text-gray-300">
-            <p className="text-white font-bold">ENGINEERED PROJECTS:</p>
-            <p className="text-[#FF2A4D] font-bold">1. One Palayan-Kalinga Hub (Flagship Capstone)</p>
+            <p className="text-white font-bold">ENGINEERED PRODUCTION SYSTEMS:</p>
+            <p className="text-cyan-400 font-bold">1. One Palayan-Kalinga Hub (CSWDO Capstone)</p>
             <p className="text-gray-400">
-              Integrated civic assistance management platform for CSWDO Palayan City. Evaluated under ISO/IEC 25010:2023 with 100% standard compliance across 8 quality dimensions.
+              Integrated municipal social welfare platform serving Palayan City residents. Handled 847+ appointments and ₱1.2M+ AICS emergency crisis assistance.
             </p>
-            <p className="text-[#FF2A4D] font-bold mt-2">2. Civic Tech Simulator &amp; SQL Sandbox</p>
+            <p className="text-cyan-400 font-bold mt-2">2. University Student Government Voting System (v2.0)</p>
             <p className="text-gray-400">
-              In-browser interactive laboratory demonstrating real-time data verification and civic analytics.
+              Automated election portal featuring student voting dashboard, candidate management, and real-time ballot tallying.
+            </p>
+            <p className="text-cyan-400 font-bold mt-2">3. Malupiton the Bird (Pygame 2D Arcade Engine)</p>
+            <p className="text-gray-400">
+              Custom Python 3.12 / Pygame 2.6 arcade game with 60 FPS delta-time physics, AABB collisions, and audio synthesis.
             </p>
             <p className="pt-1">
-              <a href="#flagship" onClick={() => setIsOpen(false)} className="text-emerald-400 hover:underline">
-                → Scroll to flagship showcase
+              <a href="#portfolio" onClick={() => setIsOpen(false)} className="text-emerald-400 hover:underline">
+                → Scroll to Portfolio &amp; System Showcase
               </a>
             </p>
           </div>

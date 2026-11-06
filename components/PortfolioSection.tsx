@@ -23,6 +23,7 @@ import { FLAGSHIP_PROJECT, SUPPORTING_PROJECTS, Project } from "@/data/portfolio
 export default function PortfolioSection() {
   const [activeTab, setActiveTab] = useState<"projects" | "certificates" | "achievements" | "stack">("projects");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [modalImageIndex, setModalImageIndex] = useState<number>(0);
   const [selectedCertificate, setSelectedCertificate] = useState<any | null>(null);
 
   const allProjects: Project[] = [FLAGSHIP_PROJECT, ...SUPPORTING_PROJECTS];
@@ -36,6 +37,19 @@ export default function PortfolioSection() {
 
   // Real Verified Certificates Uploaded by Mon Aaron Marcelo
   const certificatesList = [
+    {
+      id: "cert-neust-academic-excellence",
+      title: "Certificate of Academic Excellence",
+      issuer: "Nueva Ecija University of Science and Technology (NEUST)",
+      date: "February 13, 2026",
+      status: "Dean's Honor List • GWA 1.55",
+      image: "/images/certificates/cert-neust-academic-excellence.png",
+      credentialId: "NEUST-FUSO-HONOR-2026",
+      description:
+        "Conferred by NEUST Honor Society and University President Dr. Rhodora R. Jugo for remarkable scholastic achievement in Bachelor of Science in Information Technology (BSIT) with an outstanding 1.55 General Weighted Average.",
+      tags: ["NEUST", "Academic Excellence", "GWA 1.55", "BSIT Honor Society"],
+      isHonor: true,
+    },
     {
       id: "cert-dict-google-workspace",
       title: "ICT Skills Training: Google Workspace",
@@ -97,24 +111,24 @@ export default function PortfolioSection() {
   const achievementsList = [
     {
       number: "01",
-      title: "One Palayan-Kalinga Hub Municipal Deployment",
-      category: "Capstone Achievement",
-      metric: "100% ISO 25010 Evaluated",
-      summary: "Spearheaded the design, frontend, and database architecture of a mission-critical platform serving municipal residents and social welfare officers.",
+      title: "NEUST Certificate of Academic Excellence (GWA: 1.55)",
+      category: "Academic Honor",
+      metric: "1.55 GWA Honor Society",
+      summary: "Conferred by University President Dr. Rhodora R. Jugo, VP Engr. Feliciana P. Jacoba, and Dean Ma. Lourdes R. Quijano for remarkable scholastic achievement in BSIT for the 2nd Semester AY 2024–2025.",
     },
     {
       number: "02",
-      title: "NEUST Academic Scholar & Technical Lead",
-      category: "Academic Achievement",
-      metric: "Top Tier Standing",
-      summary: "Maintained exceptional academic standing while mentoring peers in web development, database normalization, and modern JavaScript frameworks.",
+      title: "One Palayan-Kalinga Hub Municipal Deployment",
+      category: "Flagship Civic Capstone",
+      metric: "CSWDO Palayan City",
+      summary: "Spearheaded the architecture and deployment of the municipal welfare operations platform, serving 847+ appointments and managing ₱1.2M+ in AICS social assistance funds.",
     },
     {
       number: "03",
-      title: "Production CI/CD & Multi-System Engineering",
-      category: "Engineering Achievement",
-      metric: "5+ Systems Built",
-      summary: "Architected end-to-end applications from authentication gateways to physics engines with automated GitHub workflows and Vercel cloud hosting.",
+      title: "University Student Government Voting System (v2.0)",
+      category: "Campus Systems",
+      metric: "Enhanced v2.0 Platform",
+      summary: "Engineered a secure campus election platform with real-time ballot verification, multiple candidate positions, and student voter receipt issuance.",
     },
   ];
 
@@ -365,32 +379,37 @@ export default function PortfolioSection() {
                 key={project.id}
                 className="group relative rounded-2xl bg-[#0B0F19] border border-white/10 hover:border-cyan-400/50 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(0,0,0,0.8)]"
               >
-                {/* Project Visual Preview Header */}
+                {/* Project Visual Preview Header with Authentic System Screenshot */}
                 <div className="relative aspect-[16/10] w-full bg-[#121624] overflow-hidden border-b border-white/10">
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-transparent z-10" />
+                  {project.coverImage ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={project.coverImage}
+                      alt={project.title}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : null}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/25 to-black/40 z-10" />
 
                   {/* High Tech Dashboard UI Representation */}
-                  <div className="absolute inset-0 p-4 flex flex-col justify-between">
-                    <div className="flex items-center justify-between text-[10px] font-mono text-cyan-400/80">
-                      <span className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                  <div className="absolute inset-0 p-4 flex flex-col justify-between z-20">
+                    <div className="flex items-center justify-between text-[10px] font-mono">
+                      <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-cyan-400 border border-white/15 flex items-center gap-1.5 shadow-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                         {project.category}
                       </span>
-                      <span>v{project.number || "1.0"}</span>
+                      <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-gray-300 border border-white/10">
+                        v{project.number || "1.0"}
+                      </span>
                     </div>
 
-                    <div className="text-center my-auto">
-                      <h4 className="text-base sm:text-lg font-black text-white font-mono tracking-wider drop-shadow-md">
-                        {project.title.toUpperCase()}
-                      </h4>
-                      <p className="text-[11px] font-mono text-gray-400 mt-1">
-                        {project.tags.slice(0, 3).join(" • ")}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between text-[10px] font-mono text-gray-500">
-                      <span>SECURE DEPLOY</span>
-                      <span className="text-emerald-400">STATUS: ACTIVE</span>
+                    <div className="flex items-center justify-between text-[10px] font-mono">
+                      <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md text-gray-300 border border-white/10">
+                        {project.tags.slice(0, 2).join(" • ")}
+                      </span>
+                      <span className="px-2 py-0.5 rounded bg-emerald-500/20 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-bold">
+                        VERIFIED SYSTEM
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -411,6 +430,7 @@ export default function PortfolioSection() {
                     <button
                       onClick={() => {
                         playClickSound();
+                        setModalImageIndex(0);
                         setSelectedProject(project);
                       }}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/40 text-xs font-mono text-gray-300 hover:text-white transition-all duration-300 group-hover:border-cyan-400/50"
@@ -448,11 +468,17 @@ export default function PortfolioSection() {
                     playClickSound();
                     setSelectedCertificate(cert);
                   }}
-                  className="group rounded-2xl bg-[#0B0F19] border border-white/10 hover:border-cyan-400/50 p-5 flex flex-col justify-between space-y-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(0,0,0,0.85)] cursor-pointer"
+                  className={`group rounded-2xl bg-[#0B0F19] p-5 flex flex-col justify-between space-y-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(0,0,0,0.85)] cursor-pointer ${
+                    cert.isHonor
+                      ? "border border-amber-400/40 hover:border-amber-400 shadow-[0_0_25px_rgba(251,191,36,0.12)]"
+                      : "border border-white/10 hover:border-cyan-400/50"
+                  }`}
                 >
                   <div className="space-y-3">
                     {/* Real Certificate Image Preview with Zoom Indicator */}
-                    <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#141824] border border-white/10 group-hover:border-cyan-400/50 transition-colors">
+                    <div className={`relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#141824] border transition-colors ${
+                      cert.isHonor ? "border-amber-400/30 group-hover:border-amber-400/60" : "border-white/10 group-hover:border-cyan-400/50"
+                    }`}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={cert.image}
@@ -460,7 +486,7 @@ export default function PortfolioSection() {
                         className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3 justify-between">
-                        <span className="text-[10px] font-mono text-cyan-300 flex items-center gap-1">
+                        <span className={`text-[10px] font-mono flex items-center gap-1 ${cert.isHonor ? "text-amber-300" : "text-cyan-300"}`}>
                           <Maximize2 className="w-3 h-3" /> Click to view full certificate
                         </span>
                       </div>
@@ -469,14 +495,20 @@ export default function PortfolioSection() {
                     <div className="space-y-1">
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-mono text-gray-500">{cert.date}</span>
-                        <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-[9px] font-mono font-bold text-cyan-400 border border-cyan-500/25">
+                        <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold border ${
+                          cert.isHonor
+                            ? "bg-amber-400/15 text-amber-300 border-amber-400/35"
+                            : "bg-cyan-500/10 text-cyan-400 border-cyan-500/25"
+                        }`}>
                           {cert.status}
                         </span>
                       </div>
-                      <h4 className="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">
+                      <h4 className={`text-base font-bold transition-colors ${
+                        cert.isHonor ? "text-white group-hover:text-amber-300" : "text-white group-hover:text-cyan-400"
+                      }`}>
                         {cert.title}
                       </h4>
-                      <p className="text-xs text-cyan-400 font-mono">{cert.issuer}</p>
+                      <p className={`text-xs font-mono ${cert.isHonor ? "text-amber-400/90" : "text-cyan-400"}`}>{cert.issuer}</p>
                       <p className="text-xs text-gray-400 leading-relaxed pt-1 line-clamp-2">
                         {cert.description}
                       </p>
@@ -487,7 +519,9 @@ export default function PortfolioSection() {
                     {cert.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-gray-400"
+                        className={`px-2 py-0.5 rounded text-[10px] font-mono ${
+                          cert.isHonor ? "bg-amber-400/10 text-amber-300/90 border border-amber-400/20" : "bg-white/5 text-gray-400"
+                        }`}
                       >
                         #{tag}
                       </span>
@@ -609,8 +643,14 @@ export default function PortfolioSection() {
 
       {/* Project Case Study Modal (when Details is clicked) */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="relative w-full max-w-2xl rounded-3xl bg-[#0E121E] border border-white/15 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+        <div
+          onClick={() => setSelectedProject(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-3xl rounded-3xl bg-[#0E121E] border border-white/15 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
+          >
             <button
               onClick={() => setSelectedProject(null)}
               className="absolute top-5 right-5 p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
@@ -628,17 +668,90 @@ export default function PortfolioSection() {
               <p className="text-sm font-mono text-gray-400">{selectedProject.tagline}</p>
             </div>
 
-            <div className="space-y-3 text-sm text-gray-300 leading-relaxed">
-              <p>{selectedProject.description}</p>
-              {selectedProject.solution && (
-                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                  <span className="text-xs font-mono font-bold text-white block mb-1">Architecture &amp; Solution:</span>
-                  <p className="text-xs text-gray-400">{selectedProject.solution}</p>
+            {/* High-Resolution System Screenshot Preview */}
+            <div className="space-y-3">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-black/60 border border-white/15 shadow-xl">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={
+                    selectedProject.galleryImages?.[modalImageIndex]?.url ||
+                    selectedProject.coverImage
+                  }
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                  <span className="px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md text-[11px] font-mono text-white border border-white/10 shadow-md">
+                    {selectedProject.galleryImages?.[modalImageIndex]?.caption || selectedProject.title}
+                  </span>
+                </div>
+              </div>
+
+              {/* Multi-Screenshot Gallery Switcher if available */}
+              {selectedProject.galleryImages && selectedProject.galleryImages.length > 1 && (
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {selectedProject.galleryImages.map((img, idx) => (
+                    <button
+                      key={img.url}
+                      onClick={() => setModalImageIndex(idx)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all border ${
+                        modalImageIndex === idx
+                          ? "bg-cyan-500/20 text-cyan-300 border-cyan-400 shadow-[0_0_15px_rgba(0,216,255,0.2)]"
+                          : "bg-white/5 text-gray-400 border-white/10 hover:border-white/20 hover:text-white"
+                      }`}
+                    >
+                      {img.tag || `Screen ${idx + 1}`}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
 
-            <div className="space-y-2">
+            {/* System Overview, Problem & Solution */}
+            <div className="space-y-4 text-sm text-gray-300 leading-relaxed">
+              <p>{selectedProject.description}</p>
+
+              {selectedProject.solution && (
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                  <span className="text-xs font-mono font-bold text-cyan-400 block uppercase tracking-wider">
+                    Architecture &amp; Implementation:
+                  </span>
+                  <p className="text-xs text-gray-300 leading-relaxed">{selectedProject.solution}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Core Features */}
+            {selectedProject.features && selectedProject.features.length > 0 && (
+              <div className="space-y-2">
+                <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">
+                  Key System Modules &amp; Capabilities:
+                </span>
+                <div className="space-y-1.5">
+                  {selectedProject.features.map((feat, i) => (
+                    <div key={i} className="flex items-start gap-2 text-xs text-gray-300">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 mt-0.5 shrink-0" />
+                      <span>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* System Metrics & Stats */}
+            {selectedProject.stats && selectedProject.stats.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                {selectedProject.stats.map((s, idx) => (
+                  <div key={idx} className="p-3 rounded-xl bg-[#141824] border border-white/10 text-center">
+                    <span className="text-[10px] font-mono text-gray-400 block">{s.label}</span>
+                    <span className="text-sm font-bold font-mono text-white mt-0.5 block">{s.value}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Technologies Used */}
+            <div className="space-y-2 pt-2 border-t border-white/10">
               <span className="text-xs font-mono text-gray-400 uppercase">Technologies Used:</span>
               <div className="flex flex-wrap gap-2">
                 {selectedProject.tags.map((t: string) => (
@@ -649,7 +762,8 @@ export default function PortfolioSection() {
               </div>
             </div>
 
-            <div className="pt-4 flex items-center gap-3">
+            {/* Bottom Actions */}
+            <div className="pt-2 flex items-center gap-3">
               {selectedProject.repoUrl && (
                 <a
                   href={selectedProject.repoUrl}
