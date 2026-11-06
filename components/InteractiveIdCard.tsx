@@ -166,37 +166,38 @@ export default function InteractiveIdCard() {
                 src="/images/id-back.png"
                 alt="Mon Aaron Marcelo - Connect QR Code Back"
                 fill
+                priority
                 className="object-cover object-center"
                 sizes="(max-width: 768px) 280px, 320px"
               />
-
-              {/* Interactive Direct Facebook Link Overlay at Bottom of Card */}
-              <div className="absolute inset-x-0 bottom-2 px-3 flex flex-col items-center">
-                <a
-                  href="https://www.facebook.com/yahja.ognimod.7"
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="w-full py-2 px-3 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] text-white text-[11px] font-mono font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-[#1877F2]/40 transition-all hover:scale-[1.02]"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Open Facebook Profile</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. Interactive Floating Helper Badge */}
-      <div className="mt-5 flex flex-col items-center gap-1.5 z-20">
-        <button
-          onClick={handleFlipCard}
-          className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#12141F]/90 border border-white/15 hover:border-[#FF2A4D]/50 text-xs font-mono text-gray-300 hover:text-white shadow-xl shadow-black/50 transition-all hover:scale-105"
-        >
-          <RotateCw className="w-3.5 h-3.5 text-[#FF2A4D] group-hover:rotate-180 transition-transform duration-500" />
-          <span>{isFlipped ? "Flip to ID Front" : "Click to Flip Card (Scan QR)"}</span>
-        </button>
+      {/* 3. Interactive Floating Helper Badges */}
+      <div className="mt-5 flex flex-col items-center gap-2 z-20">
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <button
+            onClick={handleFlipCard}
+            className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#12141F]/90 border border-white/15 hover:border-[#00F0FF]/50 text-xs font-mono text-gray-300 hover:text-white shadow-xl shadow-black/50 transition-all hover:scale-105"
+          >
+            <RotateCw className="w-3.5 h-3.5 text-[#00F0FF] group-hover:rotate-180 transition-transform duration-500" />
+            <span>{isFlipped ? "Flip to ID Front" : "Click to Flip Card (Scan QR)"}</span>
+          </button>
+
+          {isFlipped && (
+            <a
+              href="https://www.facebook.com/yahja.ognimod.7"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1877F2]/20 hover:bg-[#1877F2] border border-[#1877F2]/40 text-xs font-mono text-white shadow-lg transition-all hover:scale-105 animate-fade-in"
+            >
+              <ExternalLink className="w-3 h-3" />
+              <span>Open Profile Link</span>
+            </a>
+          )}
+        </div>
 
         <p className="text-[10px] font-mono text-gray-400">
           {isFlipped ? "📱 Scan QR code to connect on Facebook" : "Hover to tilt • Realistic hanging lanyard"}

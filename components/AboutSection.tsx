@@ -1,259 +1,349 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { PERSONAL_INFO } from "@/data/portfolioData";
 import {
-  GraduationCap,
+  Mail,
+  ExternalLink,
   Code2,
-  Target,
   Sparkles,
   Zap,
-  Shield,
-  Layers,
-  CheckCircle,
-  Crosshair,
-  Flame,
   Volume2,
-  VolumeX,
 } from "lucide-react";
-import { playClickSound, playHoverSound, playVictorySound } from "@/utils/soundEffects";
+import {
+  playClickSound,
+  playHoverSound,
+  playVictorySound,
+} from "@/utils/soundEffects";
 import { triggerAchievementUnlock } from "@/components/AchievementSystem";
 import { triggerConfetti } from "@/utils/confetti";
 
 export default function AboutSection() {
-  const [isIronMan, setIsIronMan] = useState(false);
+  const [isLockedFullArmor, setIsLockedFullArmor] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleToggleIronMan = (e: React.MouseEvent) => {
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const portrait = stage.querySelector(".about-portrait-inner");
+    if (!portrait) return;
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    const rect = portrait.getBoundingClientRect();
+    const x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+    const y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+
+    stage.style.setProperty("--hover-x", `${x}%`);
+    stage.style.setProperty("--hover-y", `${y}%`);
+
+    if (!isHovered) {
+      setIsHovered(true);
+      playHoverSound();
+    }
+  };
+
+  const handlePointerLeave = () => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setIsHovered(false);
+    }, 1200);
+  };
+
+  const handleToggleArmorLock = (e: React.MouseEvent) => {
     playClickSound();
-    const next = !isIronMan;
-    setIsIronMan(next);
+    const nextState = !isLockedFullArmor;
+    setIsLockedFullArmor(nextState);
 
-    if (next) {
+    if (nextState) {
       playVictorySound();
       triggerConfetti(e.clientX, e.clientY);
       triggerAchievementUnlock("secret_agent");
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   return (
-    <section id="about" className="py-24 bg-[#090A0F] relative overflow-hidden border-b border-white/5">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#FF2A4D]/10 blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-0 w-96 h-96 bg-amber-500/10 blur-[150px] pointer-events-none -z-10" />
+    <section
+      id="about"
+      className="py-24 sm:py-32 bg-[#050811] relative overflow-hidden border-b border-white/5 select-none"
+    >
+      {/* Background Starfield / Cosmic Ambient Lighting */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-gradient-to-b from-[#1E40AF]/15 via-[#DC2626]/10 to-transparent blur-[160px] rounded-full" />
+        <div className="absolute top-10 left-10 w-72 h-72 bg-cyan-500/10 blur-[130px]" />
+        <div className="absolute bottom-10 right-10 w-80 h-80 bg-red-600/10 blur-[140px]" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-16 pb-6 border-b border-white/10">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-[#FF2A4D] uppercase tracking-wider mb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF2A4D]" />
-              <span>01 / IDENTITY &amp; PASSION</span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-display">
-              ABOUT <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-[#FF2A4D]">MON AARON</span>
-            </h2>
+        {/* Section Heading: Centered "About Me" matching alfari.my.id */}
+        <div className="text-center mb-12 sm:mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight font-display">
+            About Me
+          </h2>
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <span className="w-8 h-[2px] bg-cyan-400 rounded-full" />
+            <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">
+              Identity &bull; Passion &bull; Code
+            </span>
+            <span className="w-8 h-[2px] bg-[#FF2A4D] rounded-full" />
           </div>
-
-          <p className="text-xs sm:text-sm font-mono text-gray-400 max-w-sm">
-            Junior Developer &amp; Web Developer crafting modern digital experiences from simple ideas to scalable reality.
-          </p>
         </div>
 
-        {/* Content Layout: Left Story + Right Interactive Portrait & Transformation */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Narrative & Professional Bio (7 cols) */}
-          <div className="lg:col-span-7 space-y-7 text-left">
-            {/* Main Greeting Heading */}
-            <div className="space-y-2">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                {PERSONAL_INFO.intro}
+        {/* 3-Column Layout: Left Intro | Center Hero Portrait | Right Bio */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
+          {/* Left Column: Greeting & Call to Action (Approx 3-4 cols) */}
+          <div className="lg:col-span-3 text-center lg:text-left flex flex-col items-center lg:items-start justify-center order-2 lg:order-1 space-y-4">
+            <div className="space-y-1">
+              <span className="text-xl sm:text-2xl font-semibold text-[#00F0FF] tracking-wide block">
+                Hi, I&apos;m
+              </span>
+              <h3 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.08] font-display">
+                Mon Aaron
+                <br />
+                <span className="text-gray-100">Marcelo</span>
               </h3>
-              <div className="flex flex-wrap items-center gap-2 pt-1">
-                <span className="px-3 py-1 rounded-full bg-[#FF2A4D]/15 border border-[#FF2A4D]/30 text-xs font-mono font-bold text-[#FF2A4D]">
-                  Junior Developer
-                </span>
-                <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono font-bold text-cyan-400">
-                  Web Developer
-                </span>
-                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-gray-300">
-                  NEUST Scholar
-                </span>
-                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-xs font-mono text-purple-300">
-                  Technology Enthusiast
-                </span>
-              </div>
             </div>
 
-            {/* Structured User Description */}
-            <div className="space-y-4 text-base sm:text-lg text-gray-300 leading-relaxed font-normal">
-              <p>
-                I&apos;m an aspiring <strong className="text-white font-semibold">Junior Developer</strong> with a passion for building modern, functional, and user-friendly web applications. I enjoy exploring new technologies, solving problems through programming, and continuously improving my development skills.
-              </p>
-              <p className="text-gray-400 text-sm sm:text-base">
-                I believe that every great application starts with a simple idea and becomes meaningful through creativity, dedication, and continuous learning.
-              </p>
-              <p className="text-gray-400 text-sm sm:text-base">
-                At the <span className="text-[#FF2A4D] font-medium">Nueva Ecija University of Science and Technology (NEUST Atate Campus)</span>, I served as lead developer of <strong className="text-white">One Palayan-Kalinga Hub</strong>, translating public welfare requirements into an ISO/IEC 25010-evaluated digital architecture that serves thousands of municipal residents.
-              </p>
-            </div>
+            <p className="text-xs sm:text-sm font-mono text-gray-400 max-w-xs">
+              Junior Developer &bull; Web Developer
+            </p>
 
-            {/* Core Pillars Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div className="p-4 rounded-2xl bg-[#12141F] border border-white/5 hover:border-[#FF2A4D]/40 transition-colors">
-                <Code2 className="w-5 h-5 text-[#FF2A4D] mb-2" />
-                <h4 className="text-xs font-bold text-white uppercase font-mono">Modern Frontend</h4>
-                <p className="text-[11px] text-gray-400 mt-1">React, Next.js, TypeScript &amp; Tailwind CSS</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[#12141F] border border-white/5 hover:border-cyan-400/40 transition-colors">
-                <Zap className="w-5 h-5 text-cyan-400 mb-2" />
-                <h4 className="text-xs font-bold text-white uppercase font-mono">Backend Systems</h4>
-                <p className="text-[11px] text-gray-400 mt-1">PHP 8, MySQL Relational Normalization &amp; REST</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[#12141F] border border-white/5 hover:border-emerald-400/40 transition-colors">
-                <Shield className="w-5 h-5 text-emerald-400 mb-2" />
-                <h4 className="text-xs font-bold text-white uppercase font-mono">ISO 25010 Quality</h4>
-                <p className="text-[11px] text-gray-400 mt-1">Evaluated for Security, Usability &amp; Reliability</p>
-              </div>
-            </div>
-
-            {/* Quote Pill */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-[#181A28] to-[#12141F] border-l-4 border-[#FF2A4D] text-xs font-mono text-gray-300 italic">
-              &ldquo;{PERSONAL_INFO.pullQuote}&rdquo;
+            {/* Glowing Blue Contact Button matching "Hubungi Saya" */}
+            <div className="pt-2">
+              <a
+                href="#contact"
+                onClick={() => playClickSound()}
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#1877F2] hover:bg-[#166FE5] text-white font-medium text-sm sm:text-base shadow-[0_0_28px_rgba(24,119,242,0.65)] hover:shadow-[0_0_38px_rgba(24,119,242,0.9)] hover:scale-105 active:scale-95 transition-all duration-300"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Contact Me</span>
+              </a>
             </div>
           </div>
 
-          {/* Right Column: Professional Portrait + Interactive Iron Man Transformation (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col items-center">
+          {/* Center Column: Interactive Portrait with Iron Man Reveal (Approx 5-6 cols) */}
+          <div className="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2">
             <div
-              onMouseEnter={() => {
-                setIsHovered(true);
-                playHoverSound();
-              }}
-              onMouseLeave={() => setIsHovered(false)}
-              onClick={handleToggleIronMan}
-              className="group relative w-full max-w-[340px] aspect-[419/559] rounded-3xl p-2 bg-gradient-to-b from-white/15 via-white/5 to-transparent border-2 border-white/20 hover:border-[#FF2A4D]/60 shadow-2xl shadow-black/80 cursor-pointer overflow-hidden transition-all duration-500 hover:scale-[1.02]"
-              title="Click me for a superhero transformation!"
+              ref={stageRef}
+              onPointerMove={handlePointerMove}
+              onPointerLeave={handlePointerLeave}
+              onClick={handleToggleArmorLock}
+              className={`about-portrait-stage relative flex items-center justify-center cursor-pointer ${
+                isHovered ? "is-interacting" : ""
+              } ${isLockedFullArmor ? "is-locked" : ""}`}
+              style={
+                {
+                  "--hover-x": "50%",
+                  "--hover-y": "30%",
+                } as React.CSSProperties
+              }
+              title="Point to reveal Iron Man, or click to lock armor!"
             >
-              {/* Inner Card Container */}
-              <div className="relative w-full h-full rounded-2xl overflow-hidden bg-[#0A0C14]">
-                {/* 1. Mon Aaron's Professional Suit Portrait */}
-                <div
-                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                    isIronMan ? "opacity-0 pointer-events-none scale-105" : "opacity-100 scale-100"
-                  }`}
-                >
-                  <Image
-                    src="/images/mon-aaron-suit.png"
-                    alt="Mon Aaron Marcelo - Professional Suit Portrait"
-                    fill
-                    priority
-                    className="object-contain object-bottom"
-                    sizes="340px"
-                  />
-                  {/* Bottom Vignette */}
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0A0C14] via-[#0A0C14]/70 to-transparent" />
-                </div>
+              {/* Dual Cosmic Glow Aura (Red & Blue) */}
+              <div className="about-portrait-glow" />
 
-                {/* 2. Iron Man Armored Transformation */}
-                <div
-                  className={`absolute inset-0 transition-all duration-700 ease-out ${
-                    isIronMan ? "opacity-100 scale-100" : "opacity-0 pointer-events-none scale-95"
-                  }`}
-                >
-                  <Image
-                    src="/images/ironman-suit.jpg"
-                    alt="Iron Man Armored Superhero Transformation"
-                    fill
-                    className="object-cover object-center"
-                    sizes="340px"
-                  />
+              {/* Orbital Concentric Rings */}
+              <span className="about-portrait-orbit about-portrait-orbit-one" />
+              <span className="about-portrait-orbit about-portrait-orbit-two" />
 
-                  {/* Glowing Arc Reactor Effect on Chest */}
-                  <div className="absolute top-[46%] left-[62%] -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-cyan-300/40 blur-md animate-pulse pointer-events-none" />
-                  <div className="absolute top-[46%] left-[62%] -translate-x-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white shadow-[0_0_20px_#00F0FF,0_0_40px_#00F0FF] animate-ping pointer-events-none opacity-80" />
+              {/* Glowing Orbit Spark Dot */}
+              <span className="about-portrait-spark" />
 
-                  {/* Repulsor Hand Glow */}
-                  <div className="absolute top-[29%] left-[17%] -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-cyan-300/30 blur-sm animate-pulse pointer-events-none" />
-
-                  {/* Golden-Red Superhero Armor Vignette */}
-                  <div className="absolute inset-0 border-2 border-amber-400/40 rounded-2xl pointer-events-none shadow-[inset_0_0_30px_rgba(255,42,77,0.3)]" />
-                </div>
-
-                {/* 3. Futuristic HUD Holographic Overlay (Active on Hover or in Iron Man Mode) */}
-                <div
-                  className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
-                    isHovered || isIronMan ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  {/* Crosshair Target Reticle */}
-                  <div className="absolute inset-x-4 top-4 flex justify-between items-center text-[10px] font-mono font-bold text-amber-400 uppercase tracking-widest bg-black/60 px-2.5 py-1 rounded-lg backdrop-blur-md border border-amber-400/30">
-                    <div className="flex items-center gap-1.5">
-                      <Crosshair className="w-3.5 h-3.5 text-amber-400 animate-spin" />
-                      <span>{isIronMan ? "MARK VII: PROTOCOL ACTIVE" : "SCANNING DEVELOPER..."}</span>
-                    </div>
-                    <span className="text-cyan-400">{isIronMan ? "100% POWER" : "TARGET LOCKED"}</span>
+              {/* Portrait Container with Smooth Bottom Fade */}
+              <div className="about-portrait">
+                <div className="about-portrait-inner relative w-[280px] sm:w-[360px] md:w-[400px] h-[440px] sm:h-[500px] md:h-[540px]">
+                  {/* Layer 1: Mon Aaron's Professional Suit Cutout */}
+                  <div className="about-person-image absolute inset-0 z-10 flex items-end justify-center pointer-events-none">
+                    <Image
+                      src="/images/mon-aaron-suit.png"
+                      alt="Mon Aaron Marcelo"
+                      fill
+                      priority
+                      className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]"
+                      sizes="(max-width: 768px) 320px, 420px"
+                    />
                   </div>
 
-                  {/* Corner HUD Brackets */}
-                  <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-amber-400" />
-                  <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-amber-400" />
-                  <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-amber-400" />
-                  <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-amber-400" />
+                  {/* Layer 2: Iron Man Suit / Mask Reveal Layer */}
+                  <div
+                    className={`about-ironman-image absolute inset-0 z-20 flex items-end justify-center pointer-events-none transition-opacity duration-300 ${
+                      isLockedFullArmor
+                        ? "opacity-100 locked-full"
+                        : isHovered
+                        ? "opacity-100"
+                        : "opacity-0"
+                    }`}
+                  >
+                    <Image
+                      src="/images/ironman-suit.jpg"
+                      alt="Iron Man Armor Mode"
+                      fill
+                      className="object-contain object-bottom filter saturate-110 contrast-110"
+                      sizes="(max-width: 768px) 320px, 420px"
+                    />
 
-                  {/* Scan Line Laser Effect */}
-                  <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-[hudScan_3s_linear_infinite]" />
-                </div>
+                    {/* Arc Reactor Center Glowing Light FX */}
+                    <div className="absolute top-[46%] left-[62%] -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-cyan-300/40 blur-md pointer-events-none animate-pulse" />
+                    <div className="absolute top-[46%] left-[62%] -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white shadow-[0_0_20px_#00F0FF,0_0_35px_#00F0FF] pointer-events-none" />
 
-                {/* Bottom Overlay Info Tag */}
-                <div className="absolute inset-x-3 bottom-3 p-3 rounded-xl bg-[#0E1018]/90 backdrop-blur-md border border-white/10 flex items-center justify-between">
-                  <div>
-                    <h5 className="text-xs font-bold font-mono text-white tracking-wide">
-                      {isIronMan ? "TONY STARK / MARK VII" : "MON AARON MARCELO"}
-                    </h5>
-                    <p className="text-[10px] font-mono text-[#FF2A4D]">
-                      {isIronMan ? "Full Armor Engaged" : "Junior Developer • NEUST"}
-                    </p>
+                    {/* Repulsor Glow on hand */}
+                    <div className="absolute top-[29%] left-[17%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cyan-300/35 blur-sm pointer-events-none" />
                   </div>
-
-                  <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-white/10 text-white border border-white/10">
-                    {isIronMan ? "HERO MODE" : "DEV MODE"}
-                  </span>
                 </div>
               </div>
+
+              {/* Floating Helper Pill Below Center Portrait */}
+              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-auto">
+                <button
+                  type="button"
+                  onClick={handleToggleArmorLock}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E1018]/90 border border-white/15 hover:border-cyan-400 text-[11px] font-mono text-gray-300 hover:text-white shadow-lg backdrop-blur-md transition-all hover:scale-105"
+                >
+                  <Sparkles className="w-3 h-3 text-[#00F0FF]" />
+                  <span>
+                    {isLockedFullArmor
+                      ? "Lock: Full Iron Man (Click to Unlock)"
+                      : isHovered
+                      ? "Hovering: Iron Man Revealing"
+                      : "Point at me to Suit Up"}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Bio Narrative & View Projects (Approx 3-4 cols) */}
+          <div className="lg:col-span-3 text-center lg:text-left flex flex-col items-center lg:items-start justify-center order-3 space-y-5">
+            <div className="about-bio text-sm sm:text-base text-gray-300 leading-relaxed font-normal space-y-4">
+              <p>
+                Saya adalah <strong className="text-white font-semibold">Junior Developer</strong> yang berfokus pada pengembangan teknologi yang fungsional sekaligus menarik. Saya senang memadukan kode, desain, dan pengalaman interaktif untuk membangun produk digital yang berkesan.
+              </p>
+              <p className="text-gray-400">
+                Dengan <strong className="text-gray-200">React, Next.js, Three.js, dan teknologi web modern</strong>, saya mengubah ide menjadi pengalaman digital yang intuitif, responsif, dan berdampak.
+              </p>
             </div>
 
-            {/* Interactive Toggle Hint */}
-            <div className="mt-4 flex flex-col items-center gap-1">
-              <button
-                onClick={handleToggleIronMan}
-                className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#141624] border border-[#FF2A4D]/40 hover:border-[#FF2A4D] text-xs font-mono text-white shadow-lg transition-all hover:scale-105"
+            {/* View Projects Secondary Button matching "</> Lihat Projek ↗" */}
+            <div className="pt-2">
+              <a
+                href="#projects"
+                onClick={() => playClickSound()}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 hover:border-cyan-400/60 text-white hover:text-cyan-400 text-xs sm:text-sm font-mono tracking-wide shadow-md transition-all duration-300 hover:scale-105"
               >
-                <Flame className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-12 transition-transform" />
-                <span>{isIronMan ? "Revert to Aaron's Suit Portrait" : "Click Portrait for Iron Man Suit-Up!"}</span>
-              </button>
-              <p className="text-[10px] font-mono text-gray-500">
-                Interactive Easter Egg • Hover for HUD scanner
-              </p>
+                <Code2 className="w-4 h-4 text-cyan-400" />
+                <span>Lihat Projek</span>
+                <span className="text-cyan-400 font-bold">&nearr;</span>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      <style jsx global>{`
-        @keyframes hudScan {
-          0% {
-            top: 5%;
-          }
-          50% {
-            top: 90%;
-          }
-          100% {
-            top: 5%;
-          }
+      {/* Scoped CSS replicating alfari.my.id mechanics */}
+      <style jsx>{`
+        .about-portrait-stage {
+          position: relative;
+          z-index: 10;
+          width: 100%;
+          max-width: 480px;
+          height: 520px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .about-portrait-glow {
+          position: absolute;
+          inset: 8%;
+          border-radius: 50%;
+          background: radial-gradient(at 50% 35%, rgba(220, 38, 38, 0.42), transparent 45%),
+            radial-gradient(at 48% 68%, rgba(24, 119, 242, 0.45), transparent 65%);
+          filter: blur(28px);
+          z-index: 0;
+          pointer-events: none;
+        }
+
+        .about-portrait-orbit {
+          position: absolute;
+          z-index: 1;
+          pointer-events: none;
+          border-radius: 50%;
+          aspect-ratio: 1;
+        }
+
+        .about-portrait-orbit-one {
+          width: 90%;
+          border: 1px solid rgba(108, 151, 215, 0.22);
+          top: 8%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .about-portrait-orbit-two {
+          width: 72%;
+          border: 1px solid rgba(229, 61, 81, 0.22);
+          top: 17%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .about-portrait-spark {
+          position: absolute;
+          z-index: 3;
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #39e5d0;
+          top: 56%;
+          right: 12%;
+          box-shadow: 0 0 14px 4px rgba(57, 229, 208, 0.6);
+          pointer-events: none;
+          animation: pulse 2.5s infinite;
+        }
+
+        .about-portrait {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          -webkit-mask-image: linear-gradient(#000 0% 78%, rgba(0, 0, 0, 0.7) 88%, transparent 100%);
+          mask-image: linear-gradient(#000 0% 78%, rgba(0, 0, 0, 0.7) 88%, transparent 100%);
+        }
+
+        .about-ironman-image {
+          -webkit-mask-image: radial-gradient(
+            circle 135px at var(--hover-x, 50%) var(--hover-y, 30%),
+            #000 0%,
+            #000 62%,
+            transparent 100%
+          );
+          mask-image: radial-gradient(
+            circle 135px at var(--hover-x, 50%) var(--hover-y, 30%),
+            #000 0%,
+            #000 62%,
+            transparent 100%
+          );
+        }
+
+        .about-ironman-image.locked-full {
+          -webkit-mask-image: none !important;
+          mask-image: none !important;
         }
       `}</style>
     </section>
