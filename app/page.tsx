@@ -9,6 +9,7 @@ import InteractiveDevStudio from "@/components/InteractiveDevStudio";
 import PlaygroundSection from "@/components/PlaygroundSection";
 import SkillsMatrix from "@/components/SkillsMatrix";
 import WorkProcess from "@/components/WorkProcess";
+import SocialMediaSection from "@/components/SocialMediaSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -29,6 +30,7 @@ export default function Home() {
       <PlaygroundSection />
       <SkillsMatrix />
       <WorkProcess />
+      <SocialMediaSection />
       <ContactSection />
       <Footer />
       <SecretTerminal />
