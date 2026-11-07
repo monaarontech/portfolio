@@ -11,6 +11,7 @@ export default function InteractiveIdCard() {
   const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const cardContainerRef = useRef<HTMLDivElement>(null);
+  const isFlippingRef = useRef(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardContainerRef.current) return;
@@ -40,14 +41,22 @@ export default function InteractiveIdCard() {
   };
 
   const handleFlipCard = () => {
+    if (isFlippingRef.current) return;
+    isFlippingRef.current = true;
     playCardFlipSound();
+
     const nextFlipped = !isFlipped;
     setIsFlipped(nextFlipped);
 
-    // Switch image right at the 270ms midpoint (90-degree edge-on moment)
+    // Switch image at the exact 550ms midpoint (90-degree edge-on moment of the 1100ms slow smooth flip)
     setTimeout(() => {
       setCurrentImage(nextFlipped ? "/images/id-back.png" : "/images/id-front.png");
-    }, 270);
+    }, 550);
+
+    // Release flip lock after 1100ms animation completes
+    setTimeout(() => {
+      isFlippingRef.current = false;
+    }, 1100);
 
     triggerAchievementUnlock("secret_agent");
   };
@@ -114,9 +123,10 @@ export default function InteractiveIdCard() {
       >
         {/* Dynamic Card Sleeve / Perspective Wrapper (Handles 3D Flip & Interactive Mouse Tilt) */}
         <div
-          className="relative transition-transform duration-550 ease-out"
+          className="relative will-change-transform"
           style={{
             transformStyle: "preserve-3d",
+            transition: "transform 1100ms cubic-bezier(0.4, 0.0, 0.2, 1)",
             transform: `rotateX(${tilt.x}deg) rotateY(${
               (isFlipped ? 180 : 0) + tilt.y
             }deg) scale3d(${isHovered ? 1.03 : 1}, ${isHovered ? 1.03 : 1}, 1)`,
@@ -129,14 +139,21 @@ export default function InteractiveIdCard() {
           </div>
 
           {/* The Physical Card Container (approx 591x1004 ratio) */}
-          <div className="relative w-[280px] sm:w-[320px] aspect-[591/1004] rounded-2xl p-1 bg-gradient-to-b from-white/20 via-white/10 to-white/5 border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden">
+          <div
+            className="relative w-[280px] sm:w-[320px] aspect-[591/1004] rounded-2xl p-1 bg-gradient-to-b from-white/20 via-white/10 to-white/5 border border-white/25 overflow-hidden transition-shadow duration-700"
+            style={{
+              boxShadow: isFlipped
+                ? "0 30px 70px rgba(0, 240, 255, 0.2), 0 25px 60px rgba(0,0,0,0.95)"
+                : "0 30px 70px rgba(255, 42, 77, 0.15), 0 25px 60px rgba(0,0,0,0.9)",
+            }}
+          >
             {/* The Active Display Card Face */}
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-[#1E222D]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={currentImage}
                 alt={isFlipped ? "Mon Aaron Marcelo - Connect QR Code Back" : "Mon Aaron Marcelo - Junior Developer ID Card Front"}
-                className="w-full h-full object-cover object-center select-none pointer-events-none transition-transform duration-100"
+                className="w-full h-full object-cover object-center select-none pointer-events-none"
                 style={{
                   transform: isFlipped ? "scaleX(-1)" : "none",
                 }}
@@ -158,7 +175,7 @@ export default function InteractiveIdCard() {
             onClick={handleFlipCard}
             className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#12141F]/90 border border-white/15 hover:border-[#00F0FF]/50 text-xs font-mono text-gray-300 hover:text-white shadow-xl shadow-black/50 transition-all hover:scale-105 active:scale-95"
           >
-            <RotateCw className="w-3.5 h-3.5 text-[#00F0FF] group-hover:rotate-180 transition-transform duration-500" />
+            <RotateCw className="w-3.5 h-3.5 text-[#00F0FF] group-hover:rotate-180 transition-transform duration-1000" />
             <span>{isFlipped ? "Flip to ID Front" : "Click to Flip Card (Scan QR)"}</span>
           </button>
 
