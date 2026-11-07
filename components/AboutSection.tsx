@@ -81,13 +81,6 @@ export default function AboutSection() {
       id="about"
       className="py-24 sm:py-32 bg-transparent relative overflow-hidden border-b border-white/5 select-none"
     >
-      {/* Background Starfield / Cosmic Ambient Lighting */}
-      <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-gradient-to-b from-[#1E40AF]/15 via-[#DC2626]/10 to-transparent blur-[160px] rounded-full" />
-        <div className="absolute top-10 left-10 w-72 h-72 bg-cyan-500/10 blur-[130px]" />
-        <div className="absolute bottom-10 right-10 w-80 h-80 bg-red-600/10 blur-[140px]" />
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading: Centered "About Me" matching alfari.my.id */}
         <div className="text-center mb-12 sm:mb-20">

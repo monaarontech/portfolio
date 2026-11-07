@@ -39,9 +39,6 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="py-24 bg-transparent relative overflow-hidden border-b border-white/5">
-      {/* Background radial glow */}
-      <div className="absolute bottom-0 right-1/4 w-[650px] h-[500px] bg-[#FF2A4D]/15 blur-[170px] pointer-events-none -z-10" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-6 border-b border-white/10">

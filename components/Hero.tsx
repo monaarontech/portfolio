@@ -24,20 +24,6 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       className="relative min-h-screen pt-28 pb-16 flex flex-col justify-between overflow-hidden bg-transparent border-b border-white/5 select-none"
     >
-      {/* 1. Subtle Ambient Background Lighting (Modern Minimalist Deep Glows) */}
-      <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-b from-[#FF2A4D]/15 via-purple-600/10 to-transparent blur-[160px] pointer-events-none -z-20" />
-      <div className="absolute top-1/2 right-10 w-[550px] h-[550px] bg-gradient-to-tr from-cyan-500/10 via-[#00F0FF]/5 to-transparent blur-[140px] pointer-events-none -z-20" />
-
-      {/* Subtle modern cyber grid line accents */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-20 -z-10"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-        }}
-      />
-
       {/* 2. Top Meta Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-mono uppercase tracking-widest text-gray-400 pb-4 border-b border-white/5">
