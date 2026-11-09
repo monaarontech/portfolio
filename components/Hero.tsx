@@ -108,17 +108,28 @@ export default function Hero() {
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
 
-              <a
-                href="/Mon_Aaron_Marcelo_Resume.pdf"
-                target="_blank"
-                download="Mon_Aaron_Marcelo_Resume.pdf"
-                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-white bg-[#151d2d] border border-[#2b5c92]/60 hover:border-[#3b82f6] hover:bg-[#2b5c92]/25 transition-all hover:scale-[1.03] active:scale-[0.98] shadow-lg shadow-[#2b5c92]/20"
-                title="Download Mon Aaron Marcelo Resume (PDF)"
-              >
-                <FileText className="w-4 h-4 text-[#60a5fa]" />
-                <span>Resume (PDF)</span>
-                <Download className="w-3.5 h-3.5 text-gray-400 group-hover:text-white transition-colors" />
-              </a>
+              {/* Resume Download Buttons (PDF & Editable DOCX) */}
+              <div className="inline-flex items-center">
+                <a
+                  href="/Mon_Aaron_Marcelo_Resume.pdf"
+                  target="_blank"
+                  download="Mon_Aaron_Marcelo_Resume.pdf"
+                  className="group inline-flex items-center gap-1.5 px-4 py-3.5 rounded-l-xl text-xs font-mono font-bold uppercase tracking-wider text-white bg-[#151d2d] border border-r-0 border-[#2b5c92]/60 hover:border-[#3b82f6] hover:bg-[#2b5c92]/25 transition-all hover:scale-[1.01] active:scale-[0.98] shadow-lg shadow-[#2b5c92]/20"
+                  title="Download Mon Aaron Marcelo Resume (PDF Format)"
+                >
+                  <FileText className="w-4 h-4 text-[#60a5fa]" />
+                  <span>Resume (PDF)</span>
+                </a>
+                <a
+                  href="/Mon_Aaron_Marcelo_Resume.docx"
+                  download="Mon_Aaron_Marcelo_Resume.docx"
+                  className="group inline-flex items-center gap-1 px-3 py-3.5 rounded-r-xl text-xs font-mono font-bold uppercase tracking-wider text-blue-200 bg-[#1e293b] border border-[#2b5c92]/60 hover:border-[#3b82f6] hover:bg-[#2b5c92]/40 hover:text-white transition-all hover:scale-[1.01] active:scale-[0.98] shadow-lg shadow-[#2b5c92]/20"
+                  title="Download Editable Word Resume (.docx Format)"
+                >
+                  <span>DOCX</span>
+                  <Download className="w-3.5 h-3.5 text-blue-300 group-hover:text-white transition-colors" />
+                </a>
+              </div>
 
               <a
                 href="#social"

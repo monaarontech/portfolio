@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { Menu, X, ArrowUpRight, Sparkles, Terminal, Gamepad2, Share2, FileText } from "lucide-react";
+import { Menu, X, ArrowUpRight, Sparkles, Terminal, Gamepad2, Share2, FileText, Download } from "lucide-react";
 import { openSecretTerminal } from "@/components/SecretTerminal";
 import { playClickSound, playHoverSound } from "@/utils/soundEffects";
 
@@ -175,19 +175,33 @@ export default function Navbar() {
               ))}
 
               <div className="pt-2 flex flex-col gap-2">
-                <a
-                  href="/Mon_Aaron_Marcelo_Resume.pdf"
-                  target="_blank"
-                  download="Mon_Aaron_Marcelo_Resume.pdf"
-                  onClick={() => {
-                    playClickSound();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full py-2.5 px-4 rounded-xl text-xs font-mono text-white bg-[#151d2d] border border-[#2b5c92]/60 flex items-center justify-center gap-2 hover:border-[#3b82f6]"
-                >
-                  <FileText className="w-3.5 h-3.5 text-[#60a5fa]" />
-                  <span>Download Resume (PDF)</span>
-                </a>
+                <div className="grid grid-cols-2 gap-2">
+                  <a
+                    href="/Mon_Aaron_Marcelo_Resume.pdf"
+                    target="_blank"
+                    download="Mon_Aaron_Marcelo_Resume.pdf"
+                    onClick={() => {
+                      playClickSound();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="py-2.5 px-3 rounded-xl text-xs font-mono text-white bg-[#151d2d] border border-[#2b5c92]/60 flex items-center justify-center gap-1.5 hover:border-[#3b82f6]"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-[#60a5fa]" />
+                    <span>Resume (PDF)</span>
+                  </a>
+                  <a
+                    href="/Mon_Aaron_Marcelo_Resume.docx"
+                    download="Mon_Aaron_Marcelo_Resume.docx"
+                    onClick={() => {
+                      playClickSound();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="py-2.5 px-3 rounded-xl text-xs font-mono text-blue-200 bg-[#1e293b] border border-[#2b5c92]/60 flex items-center justify-center gap-1.5 hover:border-[#3b82f6]"
+                  >
+                    <Download className="w-3.5 h-3.5 text-blue-300" />
+                    <span>Resume (DOCX)</span>
+                  </a>
+                </div>
 
                 <button
                   onClick={() => {
