@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { ArrowUpRight, Sparkles, MapPin, CheckCircle2, ArrowDown, Globe, Terminal, UserCheck } from "lucide-react";
+import { ArrowUpRight, Sparkles, MapPin, CheckCircle2, ArrowDown, Globe, Terminal, UserCheck, FileText, Download } from "lucide-react";
 import InteractiveIdCard from "@/components/InteractiveIdCard";
 import CyberCompanion from "@/components/CyberCompanion";
 import { openSecretTerminal } from "@/components/SecretTerminal";
@@ -99,18 +99,30 @@ export default function Hero() {
             </div>
 
             {/* Interactive Call-to-Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href="#portfolio"
-                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#FF2A4D] via-[#E50914] to-[#B30010] shadow-xl shadow-[#FF2A4D]/35 hover:shadow-[#FF2A4D]/55 transition-all hover:scale-[1.03] active:scale-[0.98]"
+                className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#FF2A4D] via-[#E50914] to-[#B30010] shadow-xl shadow-[#FF2A4D]/35 hover:shadow-[#FF2A4D]/55 transition-all hover:scale-[1.03] active:scale-[0.98]"
               >
-                <span>Explore My Portfolio</span>
+                <span>Explore Portfolio</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
 
               <a
+                href="/Mon_Aaron_Marcelo_Resume.pdf"
+                target="_blank"
+                download="Mon_Aaron_Marcelo_Resume.pdf"
+                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-white bg-[#151d2d] border border-[#2b5c92]/60 hover:border-[#3b82f6] hover:bg-[#2b5c92]/25 transition-all hover:scale-[1.03] active:scale-[0.98] shadow-lg shadow-[#2b5c92]/20"
+                title="Download Mon Aaron Marcelo Resume (PDF)"
+              >
+                <FileText className="w-4 h-4 text-[#60a5fa]" />
+                <span>Resume (PDF)</span>
+                <Download className="w-3.5 h-3.5 text-gray-400 group-hover:text-white transition-colors" />
+              </a>
+
+              <a
                 href="#social"
-                className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-gray-200 bg-[#12141F] border border-white/10 hover:border-[#00F0FF]/50 hover:text-white transition-all hover:bg-white/5"
+                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-gray-200 bg-[#12141F] border border-white/10 hover:border-[#00F0FF]/50 hover:text-white transition-all hover:bg-white/5"
               >
                 <Globe className="w-4 h-4 text-[#00F0FF]" />
                 <span>Find Me</span>
@@ -118,7 +130,7 @@ export default function Hero() {
 
               <button
                 onClick={openSecretTerminal}
-                className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-gray-400 bg-white/5 border border-white/10 hover:border-white/25 hover:text-white transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-3.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-gray-400 bg-white/5 border border-white/10 hover:border-white/25 hover:text-white transition-all"
                 title="Launch Terminal Console (Shortcut: ` or ~)"
               >
                 <Terminal className="w-3.5 h-3.5 text-[#FF2A4D]" />

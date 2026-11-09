@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { Menu, X, ArrowUpRight, Sparkles, Terminal, Gamepad2, Share2 } from "lucide-react";
+import { Menu, X, ArrowUpRight, Sparkles, Terminal, Gamepad2, Share2, FileText } from "lucide-react";
 import { openSecretTerminal } from "@/components/SecretTerminal";
 import { playClickSound, playHoverSound } from "@/utils/soundEffects";
 
@@ -106,6 +106,18 @@ export default function Navbar() {
                 <span className="px-1 py-0.2 rounded bg-white/10 text-[10px] text-gray-400 font-bold">~</span>
               </button>
 
+              <a
+                href="/Mon_Aaron_Marcelo_Resume.pdf"
+                target="_blank"
+                download="Mon_Aaron_Marcelo_Resume.pdf"
+                onClick={playClickSound}
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#12141C] border border-[#2b5c92]/50 hover:border-[#3b82f6] text-gray-200 hover:text-white text-xs font-mono transition-all hover:bg-[#2b5c92]/20"
+                title="Download Mon Aaron Marcelo Resume (PDF)"
+              >
+                <FileText className="w-3.5 h-3.5 text-[#60a5fa]" />
+                <span>Resume</span>
+              </a>
+
               <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
                 <span>Open for Roles</span>
@@ -163,6 +175,20 @@ export default function Navbar() {
               ))}
 
               <div className="pt-2 flex flex-col gap-2">
+                <a
+                  href="/Mon_Aaron_Marcelo_Resume.pdf"
+                  target="_blank"
+                  download="Mon_Aaron_Marcelo_Resume.pdf"
+                  onClick={() => {
+                    playClickSound();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full py-2.5 px-4 rounded-xl text-xs font-mono text-white bg-[#151d2d] border border-[#2b5c92]/60 flex items-center justify-center gap-2 hover:border-[#3b82f6]"
+                >
+                  <FileText className="w-3.5 h-3.5 text-[#60a5fa]" />
+                  <span>Download Resume (PDF)</span>
+                </a>
+
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);

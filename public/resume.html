@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon Aaron V. Marcelo - Resume</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 8mm 12mm 8mm 12mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ffffff;
+      color: #1f2937;
+      line-height: 1.3;
+      font-size: 8.7pt;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .resume-page {
+      width: 100%;
+      max-width: 186mm;
+      margin: 0 auto;
+      background: #ffffff;
+    }
+
+    /* HEADER */
+    .header {
+      margin-bottom: 7px;
+    }
+
+    .name {
+      font-size: 20pt;
+      font-weight: 800;
+      color: #2b5c92;
+      letter-spacing: 0.6px;
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .title-sub {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: 0.3px;
+      margin-bottom: 3px;
+    }
+
+    .contact-line {
+      font-size: 8.4pt;
+      color: #374151;
+      line-height: 1.25;
+    }
+
+    .contact-line a {
+      color: #2b5c92;
+      text-decoration: none;
+    }
+
+    /* SECTION HEADINGS */
+    .section-block {
+      margin-top: 7px;
+    }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 800;
+      color: #2b5c92;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding-bottom: 1.5px;
+      border-bottom: 1.5px solid #a8421d;
+      margin-bottom: 4px;
+    }
+
+    /* OBJECTIVE */
+    .objective-text {
+      font-size: 8.6pt;
+      color: #1f2937;
+      text-align: justify;
+      line-height: 1.3;
+    }
+
+    /* EDUCATION */
+    .degree-title {
+      font-size: 8.9pt;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .edu-years {
+      font-size: 8.4pt;
+      color: #374151;
+    }
+
+    .edu-school {
+      font-size: 8.6pt;
+      font-style: italic;
+      color: #374151;
+    }
+
+    .edu-location {
+      font-size: 8.3pt;
+      color: #4b5563;
+    }
+
+    .edu-award {
+      margin-top: 2px;
+      font-size: 8.3pt;
+      color: #1f2937;
+      background: #fdfaf3;
+      border-left: 2.5px solid #d97706;
+      padding: 1.5px 6px;
+      border-radius: 0 3px 3px 0;
+      line-height: 1.25;
+    }
+
+    .edu-award strong {
+      color: #92400e;
+    }
+
+    /* PROJECTS */
+    .item-group {
+      margin-bottom: 4px;
+    }
+
+    .item-header {
+      font-size: 8.8pt;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .bullet {
+      color: #111827;
+      font-size: 10pt;
+      margin-right: 4px;
+      line-height: 1;
+    }
+
+    .item-desc {
+      font-size: 8.4pt;
+      color: #374151;
+      margin-left: 12px;
+      text-align: justify;
+      line-height: 1.28;
+    }
+
+    .tech-stack-tag {
+      font-size: 7.9pt;
+      color: #2b5c92;
+      font-weight: 600;
+      margin-left: 12px;
+      margin-top: 1px;
+    }
+
+    /* WORK EXPERIENCE */
+    .work-header {
+      font-size: 8.8pt;
+      color: #111827;
+      line-height: 1.25;
+    }
+
+    .work-role {
+      font-weight: 700;
+    }
+
+    .work-company {
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .work-meta {
+      color: #4b5563;
+      font-size: 8.2pt;
+    }
+
+    /* SEMINARS & TRAININGS */
+    .seminar-item {
+      margin-bottom: 3.5px;
+    }
+
+    .seminar-title {
+      font-size: 8.8pt;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .seminar-issuer {
+      font-size: 8.1pt;
+      font-style: italic;
+      color: #4b5563;
+      margin-left: 12px;
+    }
+
+    .seminar-desc {
+      font-size: 8.3pt;
+      color: #374151;
+      margin-left: 12px;
+      line-height: 1.25;
+    }
+
+    /* SKILLS */
+    .skills-paragraph {
+      font-size: 8.4pt;
+      color: #1f2937;
+      text-align: justify;
+      line-height: 1.28;
+      margin-bottom: 3px;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5px;
+      font-size: 8.2pt;
+      color: #1f2937;
+      line-height: 1.25;
+    }
+
+    .skills-list strong {
+      color: #111827;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .resume-page {
+        margin: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="resume-page">
+    <!-- HEADER -->
+    <header class="header">
+      <h1 class="name">MON AARON V. MARCELO</h1>
+      <div class="title-sub">BSIT STUDENT | OJT APPLICANT &bull; JUNIOR WEB DEVELOPER</div>
+      <div class="contact-line">
+        Brgy. Atate, Palayan City, Nueva Ecija &bull; 09123456789 &bull; <a href="mailto:monaarontech@gmail.com">monaarontech@gmail.com</a>
+      </div>
+      <div class="contact-line" style="margin-top: 1.5px;">
+        GitHub: <a href="https://github.com/monaarontech" target="_blank">github.com/monaarontech</a> &bull; Portfolio: <a href="https://portfolio-seven-black-10.vercel.app" target="_blank">portfolio-seven-black-10.vercel.app</a>
+      </div>
+    </header>
+
+    <!-- OBJECTIVE -->
+    <section class="section-block">
+      <h2 class="section-title">OBJECTIVE</h2>
+      <p class="objective-text">
+        A motivated, proactive, and hardworking BSIT student seeking an On-the-Job Training (OJT) opportunity to gain practical industry experience and apply my knowledge in web development, system troubleshooting, and database architecture. Eager to learn new technologies, collaborate with development teams, solve technical challenges, and contribute productively in a real working environment.
+      </p>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section-block">
+      <h2 class="section-title">EDUCATION</h2>
+      <div class="degree-title">Bachelor of Science in Information Technology – Web System Technology</div>
+      <div class="edu-years">2023 – Present (Expected Graduation: 2027)</div>
+      <div class="edu-school">NEUST – Nueva Ecija University of Science and Technology, Atate Campus</div>
+      <div class="edu-location">Palayan City, Nueva Ecija</div>
+      <div class="edu-award">
+        <strong>Academic Distinction:</strong> Awarded <strong>Certificate of Academic Excellence</strong> for remarkable scholastic achievement with a <strong>General Weighted Average (GWA) of 1.55</strong> (2nd Semester AY 2024–2025) &bull; NEUST Honor Society.
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section-block">
+      <h2 class="section-title">PROJECTS</h2>
+
+      <div class="item-group">
+        <div class="item-header">
+          <span class="bullet">&bull;</span>
+          <span>One Palayan – Kalinga Hub (Capstone Project / Lead Full-Stack Developer)</span>
+        </div>
+        <p class="item-desc">
+          An enterprise municipal welfare web portal engineered for CSWDO Palayan City to streamline resident appointment scheduling, housing programs, and AICS crisis tracking. Evaluated under ISO/IEC 25010 standards with 847+ appointments served and ₱1.2M+ in released citizen assistance.
+        </p>
+        <div class="tech-stack-tag">Technologies: PHP 8, MySQL, JavaScript ES6+, AJAX, Server-Sent Events (SSE), Bootstrap</div>
+      </div>
+
+      <div class="item-group">
+        <div class="item-header">
+          <span class="bullet">&bull;</span>
+          <span>University Student Government Voting System (Enhanced v2.0 Project)</span>
+        </div>
+        <p class="item-desc">
+          An automated campus election portal featuring real-time election state monitoring, role-based voting authorization, multi-position council ballot management (8 positions), and digital voter receipt issuance.
+        </p>
+        <div class="tech-stack-tag">Technologies: Python, Web Engine, MySQL / SQLite, HTML5, CSS3, JavaScript</div>
+      </div>
+
+      <div class="item-group">
+        <div class="item-header">
+          <span class="bullet">&bull;</span>
+          <span>Malupiton the Bird: Pygame Arcade (Game Development Project)</span>
+        </div>
+        <p class="item-desc">
+          A physics-driven 2D arcade recreation programmed from scratch in Python 3.12 and Pygame 2.6. Implements custom 60 FPS delta-time physics loops, AABB collision detection, and synthesized audio triggers.
+        </p>
+        <div class="tech-stack-tag">Technologies: Python 3.12, Pygame 2.6, Object-Oriented Design (OOP), 2D Physics Engine</div>
+      </div>
+    </section>
+
+    <!-- WORK EXPERIENCE -->
+    <section class="section-block">
+      <h2 class="section-title">WORK EXPERIENCE</h2>
+
+      <div class="item-group">
+        <div class="work-header">
+          <span class="bullet">&bull;</span>
+          <span class="work-role">Lead Full-Stack Web Developer</span> &mdash; <span class="work-company">One Palayan-Kalinga Hub (CSWDO Palayan City)</span> <span class="work-meta">&mdash; (Capstone Deployment)</span>
+        </div>
+        <p class="item-desc">
+          Collaborated with CSWDO social workers to evaluate administrative bottlenecks, architected normalized relational databases (3NF), and developed appointment workflows adhering to RA 10173 Data Privacy standards.
+        </p>
+      </div>
+
+      <div class="item-group">
+        <div class="work-header">
+          <span class="bullet">&bull;</span>
+          <span class="work-role">Freelance Web Developer &amp; Technical Support</span> &mdash; <span class="work-company">Self-Employed / Freelance</span> <span class="work-meta">&mdash; Palayan City, Nueva Ecija</span>
+        </div>
+        <p class="item-desc">
+          Delivered customized responsive website layouts, debugged frontend interfaces, resolved database queries, and provided computer hardware and operating system troubleshooting support.
+        </p>
+      </div>
+    </section>
+
+    <!-- SEMINARS & TRAININGS -->
+    <section class="section-block">
+      <h2 class="section-title">SEMINARS &amp; TRAININGS</h2>
+
+      <div class="seminar-item">
+        <div class="seminar-title">
+          <span class="bullet">&bull;</span>
+          <span>PRESS START: Game Development in Modern Era</span>
+        </div>
+        <div class="seminar-issuer">DICT Regional Office VIII &amp; IIDB &bull; Credential ID: 2026-08-SAM-WB-01-OL-012 (August 17, 2026)</div>
+        <p class="seminar-desc">Gained foundational insights into game development workflows, indie game mechanics, and digital creative production.</p>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">
+          <span class="bullet">&bull;</span>
+          <span>How to Grow Your I.T. Career by Becoming CCNA</span>
+        </div>
+        <div class="seminar-issuer">Tech Academy (Billy Ramirez IT Solutions) &bull; Credential ID: YFNNAS-CE000213 / TAC-030826-6218 (August 1, 2026)</div>
+        <p class="seminar-desc">Learned core networking fundamentals, routing &amp; switching essentials, subnetting protocols, and CCNA career pathways.</p>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">
+          <span class="bullet">&bull;</span>
+          <span>ICT Skills Training: Google Workspace</span>
+        </div>
+        <div class="seminar-issuer">DICT Region III &amp; ILCDB &bull; Credential ID: 2026-08-PAM-WB-02-OL-381 (August 11, 2026)</div>
+        <p class="seminar-desc">Completed 3-hour competency training on enterprise Google Workspace cloud collaboration tools and digital workflows.</p>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">
+          <span class="bullet">&bull;</span>
+          <span>Introduction to AI for Business Advertising</span>
+        </div>
+        <div class="seminar-issuer">DICT Region II &amp; Quirino Provincial Office &bull; Credential ID: ILCD_R2_ISDDL_2026_73 (August 6, 2026)</div>
+        <p class="seminar-desc">Explored artificial intelligence integration in digital advertising, automated content creation, and MSME growth strategies.</p>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">
+          <span class="bullet">&bull;</span>
+          <span>How to Grow Your Career with IT Certifications</span>
+        </div>
+        <div class="seminar-issuer">Tech Academy (Billy Ramirez IT Solutions) &bull; Credential ID: TAPH-CE000251 / TAC-020826-5867 (October 3, 2026)</div>
+        <p class="seminar-desc">Strategic webinar on global IT certification roadmaps, vendor qualifications, and professional career development.</p>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section-block">
+      <h2 class="section-title">SKILLS</h2>
+      <p class="skills-paragraph">
+        I am a hardworking person who is always actively moving and hands-on when completing tasks. I can work well with others, manage my time responsibly, organize tasks, and adapt easily to new environments. I am eager to learn new technologies and continuously expand my knowledge in web systems and information technology. I approach problems patiently, think of practical solutions, and handle every responsibility with dedication.
+      </p>
+      <div class="skills-list">
+        <div>&bull; <strong>Programming &amp; Web Technologies:</strong> PHP, JavaScript (ES6+), Python, HTML5, CSS3, SQL, TypeScript, Java, Tailwind CSS, Bootstrap, React, Next.js</div>
+        <div>&bull; <strong>Databases &amp; Architecture:</strong> MySQL, MariaDB, Relational Normalization (3NF), PDO, RESTful APIs, Server-Sent Events (SSE), XAMPP</div>
+        <div>&bull; <strong>Tools &amp; Methodologies:</strong> Git, GitHub, VS Code, Postman, Vercel, NetBeans, Pygame, Agile Scrum, ISO/IEC 25010 Quality Standards</div>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
